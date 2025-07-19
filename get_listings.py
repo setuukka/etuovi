@@ -16,6 +16,10 @@ import pandas as pd
 import time
 import random
 from datetime import datetime
+from bs4 import BeautifulSoup, NavigableString
+import re
+import requests
+from pathlib import Path
 
 def current_date():
     return datetime.now().strftime('%d%m%Y')
@@ -42,6 +46,32 @@ def wait_random():
     wait_time = random.uniform(1, 3)
     print(f"Waiting for {wait_time:.2f} seconds")
     time.sleep(wait_time)
+
+def update_listing_file(url_list, filename='all_listings.csv'):
+    file_path = Path(filename)
+    if file_path.exists():
+        df_new = pd.read_csv('latest_listings.csv')
+        #luetaan viimeisin hakutulos dataframeen
+        df_old = pd.read_csv(file_path)
+        #asetetaan kaikki oletuksena ei-aktiivisiksi
+        df_old['active'] = False
+        #päivitetään rivit, jotka löytyvät uudesta hausta
+        df_old.loc[df_old['url'].isin(url_list), 'active'] = True
+        #yhdistetään uudet rivit, jotka eivät ole vielä mukana
+        df_combined = pd.concat([
+            df_old,
+            df_new[~df_new['url'].isin(df_old['url'])]
+        ], ignore_index=True)
+    else:
+        #Tiedostoa ei ole, käytetään vain uusia
+        df_combined = pd.read_csv('latest_listings.csv')
+        #poistetaan duplikaatot
+    df_combined.drop_duplicates(subset = 'url', keep = 'last', inplace = True)
+    #Tallennetaan df csv
+    df_combined.to_csv(file_path, index = False)
+    return df_combined
+
+ 
 
 def get_urls(base_url, page):
 
@@ -114,6 +144,7 @@ def get_urls(base_url, page):
 
     df = pd.DataFrame(url_list, columns=['url'])
     df['fetch_date'] = current_date()
+    df['active'] = True
     df = df.drop_duplicates(subset = ['url'])
 
 
@@ -125,7 +156,64 @@ def get_urls(base_url, page):
     execution_time_etuovi = end_time_etuovi - start_time_etuovi
     print(f"Execution time: {execution_time_etuovi:.2f} seconds")
 
+def get_soup(df):
+    soups = []
 
+    for index, row in df.iterrows():
+        url = row['url']
+        try:
+            #print(f"Fetching: {url}")
+            response = requests.get(url)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.content, 'html.parser')
+                soups.append(str(soup))  # tallenna tekstinä
+            else:
+                soups.append(None)
+                print(f"Failed with status code {response.status_code}")
+        except Exception as e:
+            print(f"Error fetching {url}: {e}")
+            soups.append(None)
+
+        time.sleep(1)  # Ystävällinen tauko, ettei palvelin hermostu
+
+    df['soup'] = soups
+    return df
+
+def extract_price(soup):
+    soup = BeautifulSoup(soup, 'html.parser')
+    try:
+        h3_tags = soup.find_all('h3')
+        if not h3_tags:
+            return 0
+        hinta_str = h3_tags[0].get_text(strip=True).replace('\xa0', '').replace('€', '').strip()
+        hinta = int(hinta_str)
+
+    except Exception:
+        hinta = 0
+    return hinta
+
+
+def extract_em_span_pairs(soup):
+    if isinstance(soup, str):
+        soup = BeautifulSoup(soup, 'html.parser')
+
+    em_dict = {}
+    try:
+        em_tags = soup.find_all('em')
+        #em_tags = em_tags[0:10]
+        for em_tag in em_tags:
+            key = em_tag.get_text(strip=True)
+            value = em_tag.find_next('span').get_text(strip = True)
+
+            if len(value) > 0:
+                em_dict[key] = value
+            else:
+                em_dict[key] == ''
+
+    except Exception as e:
+        print(f"extract_em_text_pairs error: {e}")
+        em_dict = {}
+    return em_dict
 
 
 if __name__ == "__main__":
@@ -133,5 +221,62 @@ if __name__ == "__main__":
     page = 1
     seen_hrefs = set()
     url_list = []
-    get_urls(base_url, page)
+    #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
+
+    #get_urls(base_url, page) 
+
+    temp_df = pd.read_csv('latest_listings.csv')
+    url_list = temp_df['url']
+    print(f"Calling function update_listing_file with {len(url_list)} rows")
+    df_combined = update_listing_file(url_list)
+    print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
     
+    #Haetaan SOUP jokaiseen urliin. Väliaikaisesti kiinni testiä varten
+    #df_combined = get_soup(df_combined)
+    #print(df_combined.head()) #DEBUGS
+
+    #TAllennetaan väliaikaisesti testiä varten df_combined csv:ksi, jotta ei tarvitse tehdä etuovesta hakuja testiä varten
+    #df_combined.to_csv("csv_with_soup_temp.csv")
+    df_combined = pd.read_csv('csv_with_soup_temp.csv')
+    #print(df_combined.head()) #DEBUGS
+    #TEHDÄÄN VÄLIAIKAISESTI lyhyt DF
+    #df_combined =df_combined.head(1)
+    #soup = df_combined['soup']
+
+    #Haetaan hinta ja muut parametrit
+
+
+    def process_listing(soup):
+        return {
+            'price': extract_price(soup),
+            **extract_em_span_pairs(soup)
+        }
+
+    for idx, row in df_combined.iterrows():
+        data = process_listing(row['soup'])
+        for key, value in data.items():
+            df_combined.at[idx, key] = value
+
+    for idx, row in df_combined.iterrows():
+        data = extract_em_span_pairs(row['soup'])
+
+    #print(df_combined.columns)
+    df_combined.drop(columns = ['Vapautuminen','Parvekkeen kuvaus','Asuntoon kuuluu','Ilmanvaihto','Rakennus- ja pintamateriaalit','Keittiön kuvaus','Kylpyhuoneen kuvaus', 'Olohuoneen kuvaus', 'Makuuhuoneiden kuvaus',
+       'Säilytystilojen kuvaus', 'Kattotyyppi', 'Kattomateriaali','Isännöitsijän yhteystiedot', 'Huolto',
+       'Taloyhtiöön kuuluu','Energialuokka',
+       'Tontin koko','Kaavoitustilanne', 'Tontin vuokraaja','Palvelut', 'Liikenneyhteydet', 'Näkymät',
+       'Kokonaispinta-ala', 'Käyttöönottovuosi', 'Lisätietoja kunnosta',
+       'Kattomateriaalin kuvaus', 'Muuta taloyhtiöstä',
+       'Taloyhtiön autopaikat', 'Kaavoitustiedot', 'Lisätietoja',
+       'Tietoliikenne', 'Kohteen lisätiedot', 'Vesihuollon kuvaus', 'Viemäri',
+       'Tiedustelut', 'Muuta kauppaan kuuluvaa', 'WC-tilojen kuvaus',
+       'Saunan kuvaus', 'Kattotyypin kuvaus', 'Lisätietoa auton säilytyksestä',
+       'Tontin vuokra', 'Tulisija', 'Tilojen kuvaus', 'Asbestikartoitus',
+       'Kodinhoitohuoneen kuvaus', 'Kiinteistötunnus', 'Pihan kuvaus',
+       'Asuinkerrosten määrä', 'Lämmitysjärjestelmä', 'Vesijohto',
+       'Asunnon käytössä olevat autopaikat', 'Lisätietoa tontin omistuksesta','Lisätietoa tontista', 'Kuntotarkastus', 'Ranta',
+       'Ajo-ohjeet'], inplace = True)
+
+    print(df_combined)
+
+     
