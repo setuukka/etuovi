@@ -20,6 +20,7 @@ from bs4 import BeautifulSoup, NavigableString
 import re
 import requests
 from pathlib import Path
+import numpy as np
 
 def current_date():
     return datetime.now().strftime('%d%m%Y')
@@ -53,10 +54,14 @@ def update_listing_file(url_list, filename='all_listings.csv'):
         df_new = pd.read_csv('latest_listings.csv')
         #luetaan viimeisin hakutulos dataframeen
         df_old = pd.read_csv(file_path)
+        #print(df_old)
         #asetetaan kaikki oletuksena ei-aktiivisiksi
         df_old['active'] = False
         #päivitetään rivit, jotka löytyvät uudesta hausta
         df_old.loc[df_old['url'].isin(url_list), 'active'] = True
+        #Asetetaan df['removal_date'] arvoksi kuluva päivä, jos se on tyhjä ja df['active] = False
+        df_old.loc[(df_old['removal_date'].isna()) & (df_old['active'] == False), 'removal_date'] = datetime.today().date()
+    
         #yhdistetään uudet rivit, jotka eivät ole vielä mukana
         df_combined = pd.concat([
             df_old,
@@ -71,17 +76,13 @@ def update_listing_file(url_list, filename='all_listings.csv'):
     df_combined.to_csv(file_path, index = False)
     return df_combined
 
- 
-
 def get_urls(base_url, page):
-
     try:
         spotlight = driver.find_element(By.ID, "spotlight-container-id")
         driver.execute_script("arguments[0].remove();", spotlight)
         print("Spotlight-mainos poistettu.")
     except:
         print("Ei spotlight-mainosta tällä sivulla.")
-
 
     print(base_url)
     driver.get(base_url)
@@ -145,7 +146,9 @@ def get_urls(base_url, page):
     df = pd.DataFrame(url_list, columns=['url'])
     df['fetch_date'] = current_date()
     df['active'] = True
-    df = df.drop_duplicates(subset = ['url'])
+    df['removal_date'] = None
+    #print(df['removal_date'])
+    df = df.drop_duplicates(subset = ['url'], keep = 'last')
 
 
     print(f"Writing {len(url_list)} rows to csv")
@@ -222,8 +225,7 @@ if __name__ == "__main__":
     seen_hrefs = set()
     url_list = []
     #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
-
-    #get_urls(base_url, page) 
+    get_urls(base_url, page) 
 
     temp_df = pd.read_csv('latest_listings.csv')
     url_list = temp_df['url']
@@ -232,11 +234,11 @@ if __name__ == "__main__":
     print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
     
     #Haetaan SOUP jokaiseen urliin. Väliaikaisesti kiinni testiä varten
-    #df_combined = get_soup(df_combined)
+    df_combined = get_soup(df_combined)
     #print(df_combined.head()) #DEBUGS
 
     #TAllennetaan väliaikaisesti testiä varten df_combined csv:ksi, jotta ei tarvitse tehdä etuovesta hakuja testiä varten
-    #df_combined.to_csv("csv_with_soup_temp.csv")
+    df_combined.to_csv("csv_with_soup_temp.csv")
     df_combined = pd.read_csv('csv_with_soup_temp.csv')
     #print(df_combined.head()) #DEBUGS
     #TEHDÄÄN VÄLIAIKAISESTI lyhyt DF
@@ -261,12 +263,12 @@ if __name__ == "__main__":
         data = extract_em_span_pairs(row['soup'])
 
     #print(df_combined.columns)
-    df_combined.drop(columns = ['Vapautuminen','Parvekkeen kuvaus','Asuntoon kuuluu','Ilmanvaihto','Rakennus- ja pintamateriaalit','Keittiön kuvaus','Kylpyhuoneen kuvaus', 'Olohuoneen kuvaus', 'Makuuhuoneiden kuvaus',
+    df_combined.drop(columns = ['Muut maksut','Hinta','Rakennusvuosi','soup','Omistusmuoto','Huoneita','Lisätietoja pinta-alasta','Vapautuminen','Parvekkeen kuvaus','Asuntoon kuuluu','Ilmanvaihto','Rakennus- ja pintamateriaalit','Keittiön kuvaus','Kylpyhuoneen kuvaus', 'Olohuoneen kuvaus', 'Makuuhuoneiden kuvaus',
        'Säilytystilojen kuvaus', 'Kattotyyppi', 'Kattomateriaali','Isännöitsijän yhteystiedot', 'Huolto',
-       'Taloyhtiöön kuuluu','Energialuokka',
+       'Taloyhtiöön kuuluu','Energialuokka','Sauna','Parveke','Hissi',
        'Tontin koko','Kaavoitustilanne', 'Tontin vuokraaja','Palvelut', 'Liikenneyhteydet', 'Näkymät',
        'Kokonaispinta-ala', 'Käyttöönottovuosi', 'Lisätietoja kunnosta',
-       'Kattomateriaalin kuvaus', 'Muuta taloyhtiöstä',
+       'Kattomateriaalin kuvaus', 'Muuta taloyhtiöstä','Huoneistoselitelmä','Vastike',
        'Taloyhtiön autopaikat', 'Kaavoitustiedot', 'Lisätietoja',
        'Tietoliikenne', 'Kohteen lisätiedot', 'Vesihuollon kuvaus', 'Viemäri',
        'Tiedustelut', 'Muuta kauppaan kuuluvaa', 'WC-tilojen kuvaus',
@@ -276,7 +278,12 @@ if __name__ == "__main__":
        'Asuinkerrosten määrä', 'Lämmitysjärjestelmä', 'Vesijohto',
        'Asunnon käytössä olevat autopaikat', 'Lisätietoa tontin omistuksesta','Lisätietoa tontista', 'Kuntotarkastus', 'Ranta',
        'Ajo-ohjeet'], inplace = True)
+    
+    df_combined['huoneita'] = df_combined['Tyyppi'].str[0]
+
+
 
     print(df_combined)
+    df_combined.to_csv("riisuttu.csv")
 
      
