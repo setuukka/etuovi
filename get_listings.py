@@ -44,7 +44,7 @@ if not os.path.exists(geckodriver_path):
 driver = webdriver.Firefox(service = Service(geckodriver_path),options = firefox_options)
 
 def wait_random():
-    wait_time = random.uniform(1, 3)
+    wait_time = random.uniform(1, 5)
     print(f"Waiting for {wait_time:.2f} seconds")
     time.sleep(wait_time)
 
@@ -137,7 +137,7 @@ def get_urls(base_url, page):
 
         url_list.extend(new_hrefs)
         page += 1
-
+        wait_random()
     driver.quit()
 
     date = current_date()
@@ -162,6 +162,7 @@ def get_urls(base_url, page):
 def get_soup(df):
     soups = []
 
+
     for index, row in df.iterrows():
         url = row['url']
         try:
@@ -177,7 +178,7 @@ def get_soup(df):
             print(f"Error fetching {url}: {e}")
             soups.append(None)
 
-        time.sleep(1)  # Ystävällinen tauko, ettei palvelin hermostu
+        wait_random()
 
     df['soup'] = soups
     return df
@@ -195,6 +196,19 @@ def extract_price(soup):
         hinta = 0
     return hinta
 
+def extract_address(soup):
+    soup = BeautifulSoup(soup, 'html.parser')
+    try:
+        h1_tags = soup.find_all('h1')
+        print(h1_tags)
+        if not h1_tags:
+            return 0
+        address_str = h1_tags[0].get_text(strip=True).replace('\xa0', '').replace('€', '').strip()
+        address = address_str
+
+    except Exception:
+        address = ""
+    return address
 
 def extract_em_span_pairs(soup):
     if isinstance(soup, str):
@@ -233,14 +247,21 @@ if __name__ == "__main__":
     df_combined = update_listing_file(url_list)
     print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
     
-    #Haetaan SOUP jokaiseen urliin. Väliaikaisesti kiinni testiä varten
-    df_combined = get_soup(df_combined)
-    #print(df_combined.head()) #DEBUGS
+    #Luodaan df niistä riveistä, joita puuttuu hinta ja haetaan SOUP niille
+    try:
+        df_no_values = df_combined[df_combined['price'].isna()].copy()
+        df_no_values = get_soup(df_no_values)
+        df_combined.update(df_no_values)
+
+    except KeyError:
+        df_combined = get_soup(df_combined)
+    #Yhdisteään haetut tiedot takaisin
+    #print(df_combined.head()) #DEBUG
 
     #TAllennetaan väliaikaisesti testiä varten df_combined csv:ksi, jotta ei tarvitse tehdä etuovesta hakuja testiä varten
     df_combined.to_csv("csv_with_soup_temp.csv")
     df_combined = pd.read_csv('csv_with_soup_temp.csv')
-    #print(df_combined.head()) #DEBUGS
+    #print(df_combined.head()) #DEBUG
     #TEHDÄÄN VÄLIAIKAISESTI lyhyt DF
     #df_combined =df_combined.head(1)
     #soup = df_combined['soup']
@@ -251,7 +272,8 @@ if __name__ == "__main__":
     def process_listing(soup):
         return {
             'price': extract_price(soup),
-            **extract_em_span_pairs(soup)
+            **extract_em_span_pairs(soup),
+            'address': extract_address(soup)
         }
 
     for idx, row in df_combined.iterrows():
@@ -280,10 +302,11 @@ if __name__ == "__main__":
        'Ajo-ohjeet'], inplace = True)
     
     df_combined['huoneita'] = df_combined['Tyyppi'].str[0]
+    df_combined['tontin_vuokra-aika'] = df_combined['Tontin vuokra-aika päättyy'].fillna(df_combined['Tontin vuokra-aika'])
+    df_combined.drop(columns=['Tontin vuokra-aika','Tontin vuokra-aika päättyy'],inplace = True)
 
 
-
-    print(df_combined)
+    #print(df_combined)
     df_combined.to_csv("riisuttu.csv")
 
      
