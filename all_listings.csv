@@ -1,62 +1,63 @@
-url,fetch_date,active,removal_date
-https://www.etuovi.com/kohde/32074348,20072025,True,
-https://www.etuovi.com/kohde/602070,20072025,True,
-https://www.etuovi.com/kohde/80431751,20072025,True,
-https://www.etuovi.com/kohde/21682352,20072025,True,
-https://www.etuovi.com/kohde/20112745,20072025,True,
-https://www.etuovi.com/kohde/2267800,20072025,True,
-https://www.etuovi.com/kohde/600839,20072025,True,
-https://www.etuovi.com/kohde/1397574,20072025,True,
-https://www.etuovi.com/kohde/20445746,20072025,True,
-https://www.etuovi.com/kohde/21637389,20072025,True,
-https://www.etuovi.com/kohde/80431088,20072025,True,
-https://www.etuovi.com/kohde/21211973,20072025,True,
-https://www.etuovi.com/kohde/80429382,20072025,True,
-https://www.etuovi.com/kohde/80418554,20072025,True,
-https://www.etuovi.com/kohde/1393186,20072025,True,
-https://www.etuovi.com/kohde/21748978,20072025,True,
-https://www.etuovi.com/kohde/bd6439,20072025,True,
-https://www.etuovi.com/kohde/80427175,20072025,True,
-https://www.etuovi.com/kohde/599128,20072025,True,
-https://www.etuovi.com/kohde/20995328,20072025,True,
-https://www.etuovi.com/kohde/1396092,20072025,True,
-https://www.etuovi.com/kohde/21388986,20072025,True,
-https://www.etuovi.com/kohde/20217489,20072025,True,
-https://www.etuovi.com/kohde/20205626,20072025,True,
-https://www.etuovi.com/kohde/21029015,20072025,True,
-https://www.etuovi.com/kohde/58753080,20072025,True,
-https://www.etuovi.com/kohde/593061,20072025,True,
-https://www.etuovi.com/kohde/80421533,20072025,True,
-https://www.etuovi.com/kohde/80419380,20072025,True,
-https://www.etuovi.com/kohde/594553,20072025,True,
-https://www.etuovi.com/kohde/21468071,20072025,True,
-https://www.etuovi.com/kohde/54311066,20072025,True,
-https://www.etuovi.com/kohde/1388105,20072025,True,
-https://www.etuovi.com/kohde/20240378,20072025,True,
-https://www.etuovi.com/kohde/593216,20072025,True,
-https://www.etuovi.com/kohde/596368,20072025,True,
-https://www.etuovi.com/kohde/1390292,20072025,True,
-https://www.etuovi.com/kohde/80399546,20072025,True,
-https://www.etuovi.com/kohde/20261791,20072025,True,
-https://www.etuovi.com/kohde/x69298,20072025,True,
-https://www.etuovi.com/kohde/20472563,20072025,True,
-https://www.etuovi.com/kohde/20800244,20072025,True,
-https://www.etuovi.com/kohde/2265205,20072025,True,
-https://www.etuovi.com/kohde/20099866,20072025,True,
-https://www.etuovi.com/kohde/20691712,20072025,True,
-https://www.etuovi.com/kohde/80390431,20072025,True,
-https://www.etuovi.com/kohde/80388484,20072025,True,
-https://www.etuovi.com/kohde/20683877,20072025,True,
-https://www.etuovi.com/kohde/80387599,20072025,True,
-https://www.etuovi.com/kohde/590897,20072025,True,
-https://www.etuovi.com/kohde/80386260,20072025,True,
-https://www.etuovi.com/kohde/589846,20072025,True,
-https://www.etuovi.com/kohde/20443576,20072025,True,
-https://www.etuovi.com/kohde/80360800,20072025,True,
-https://www.etuovi.com/kohde/1381011,20072025,True,
-https://www.etuovi.com/kohde/80378796,20072025,True,
-https://www.etuovi.com/kohde/585603,20072025,True,
-https://www.etuovi.com/kohde/1378125,20072025,True,
-https://www.etuovi.com/kohde/21590228,20072025,True,
-https://www.etuovi.com/kohde/20000240,20072025,True,
-https://www.etuovi.com/kohde/80431741,21072025,True,
+,url,fetch_date,active,removal_date,Kohdenumero,Tyyppi,Kerrokset,Taloyhtiön nimi,Isännöitsijän yhteystiedot,Tontin omistus,hoitovastike,yhtiovastike_yhteensa,huoneita,tontin_vuokra-aika,katuosoite
+0,https://www.etuovi.com/kohde/20764692,23072025,True,,20764692,1h + kk + kph + vh,1/3,Oiva Isännöinti Oulu Oy / Pekka Kallunki 010 755 6233,Oiva Isännöinti Oulu Oy / Pekka Kallunki 010 755 6233,Vuokra,173.88,190.89,1,30.12.2055,Tarkka-ampujankatu 20
+1,https://www.etuovi.com/kohde/1397908,23072025,True,,1397908,"1h, k, kph, s, lasit.parv.",3/3,Ostajalle aiheutuvat kustannukset: Ei tiedossa,,Oma,134.9,134.9,1,,Kirkkokatu 79-81
+2,https://www.etuovi.com/kohde/21637389,23072025,True,,21637389,2h + k,2/3,"Retta Isännöinti Oy Minna Juntunen, Puh; 0102281968 Sähköposti; minna.juntunen@retta.fi","Retta Isännöinti Oy Minna Juntunen, Puh; 0102281968 Sähköposti; minna.juntunen@retta.fi",Vuokra,236.43,236.43,2,30.12.2056,Tarkka-ampujankatu 16
+3,https://www.etuovi.com/kohde/21766801,23072025,True,,21766801,"2h, k, s",2/5,"Seija Makkonen, Oiva Isännöinti Seija.makkonen@oi.fi","Seija Makkonen, Oiva Isännöinti Seija.makkonen@oi.fi",Oma,0.0,220.5,2,,Torikatu 51
+4,https://www.etuovi.com/kohde/80431741,23072025,True,,80431741,"3h, k, kph, parv",1/3,"Kiinteistö-Tahkola Oulu Oy, Aleksi Lepistö, aleksi.lepisto@kiinteistotahkola.fi, 0207488224","Kiinteistö-Tahkola Oulu Oy, Aleksi Lepistö, aleksi.lepisto@kiinteistotahkola.fi, 0207488224",Vuokra,205.0,430.5,3,30.12.2059,Aleksanterinkatu 58 D
+5,https://www.etuovi.com/kohde/32074348,23072025,True,,32074348,"2h, kk, kph, p",1/6,Isännöintitoimisto,Isännöintitoimisto,Vuokra,211.6,317.4,2,31.12.2054,Tarkka-ampujankatu 18
+6,https://www.etuovi.com/kohde/602070,23072025,True,,602070,"2h, kk, kh",3/5,Retta Isännöinti Oy / Myllyoja Kari,Retta Isännöinti Oy / Myllyoja Kari,Oma,152.0,300.0,2,,Isokatu 69 B
+7,https://www.etuovi.com/kohde/80431751,23072025,True,,80431751,"2h, k, kph, parv",3/3 (ylin kerros),"Oiva Isännöinti Oulu Oy, Pekka Kallunki, pekka.kallunki@oi.fi, 0107556233","Oiva Isännöinti Oulu Oy, Pekka Kallunki, pekka.kallunki@oi.fi, 0107556233",Vuokra,262.0,262.2,2,31.12.2054,Tarkka-ampujankatu 18 C
+8,https://www.etuovi.com/kohde/21682352,23072025,True,,21682352,4h + kk + s,1/6,Kiinteistö-Tahkola Oulun toimipiste Pekka Punju p. 0207480290,Kiinteistö-Tahkola Oulun toimipiste Pekka Punju p. 0207480290,Oma,248.0,248.0,4,,Aleksanterinkatu 71
+9,https://www.etuovi.com/kohde/20112745,23072025,True,,20112745,1h + k + vh,3/3,Oiva Isännöinti Oulu Oy / Pekka Kallunki 010 755 6233,Oiva Isännöinti Oulu Oy / Pekka Kallunki 010 755 6233,Vuokra,203.78,203.78,1,30.12.2055,Tarkka-Ampujankatu 20
+10,https://www.etuovi.com/kohde/2267800,23072025,True,,2267800,"Kerrostalo 2h, k + s",1/4 (alin kerros),"Hissi, Vinttikomero",,Oma,164.5,164.5,K,,Isokatu 89
+11,https://www.etuovi.com/kohde/600839,23072025,True,,600839,2h + kk + kh + parveke,5/6,Retta Isännöinti Oy / Myllyoja Kari,Retta Isännöinti Oy / Myllyoja Kari,Oma,182.4,636.29,2,,Isokatu 69 B
+12,https://www.etuovi.com/kohde/1397574,23072025,True,,1397574,"2h, k, kph / wc, vh, las. parv.",3/5,"Hissi, Taloyhtiössä on sauna",,Vuokra,269.7,269.7,2,30.12.2057,Aleksanterinkatu 54
+13,https://www.etuovi.com/kohde/20445746,23072025,True,,20445746,"4h, k",4/6,Retta Isännöinti Oy / Mika Lohi,Retta Isännöinti Oy / Mika Lohi,Oma,464.0,464.0,4,,Torikatu 58-60
+14,https://www.etuovi.com/kohde/80431088,23072025,True,,80431088,2h + k + kh + parv,3/5,564-5-2-1,"Isännöintipalvelu Heikki Lahti Oy, Jussi Roininen, IAT, Rak.ark, jussi@hlahti.fi, 0504714505",Oma,217.0,217.0,2,,Isokatu 76 A
+15,https://www.etuovi.com/kohde/21211973,23072025,True,,21211973,2h + k + khh + lasitettu parveke,3/3,Reim Oulu Päivi Similä 0207 441 772,Reim Oulu Päivi Similä 0207 441 772,Oma,284.2,346.26,2,,Puistokatu 22
+16,https://www.etuovi.com/kohde/80429382,23072025,True,,80429382,2h + k + kh,1/2,"Reim Isännöinti, Jaana Hirvonen","Reim Isännöinti, Jaana Hirvonen",Oma,244.0,244.0,2,,Aleksanterinkatu 79 B
+17,https://www.etuovi.com/kohde/80418554,23072025,True,,80418554,Oh + alkovi + kk + kh / wc + s + vh,3/4,564-5-4-25,"REIM Oulu Oy, Sutelainen Kari, kari.sutelainen@reim.fi, 0207 441 700",Oma,138.7,175.2,O,,Isokatu 86 A
+18,https://www.etuovi.com/kohde/1393186,23072025,True,,1393186,"2h, k, kph, lasitettu parveke",3/6,"Taloyhtiössä on sauna, Hissi",,Vuokra,269.7,269.7,2,30.12.2057,Aleksanterinkatu 54
+19,https://www.etuovi.com/kohde/21748978,23072025,True,,21748978,3 h + k + kph + lasit.parveke,3/3,Isännöintipalvelu Heikki Lahti Oy Isännöitsijä: Jussi Roininen Puh. 050 471 4505 Sähköposti: jussi@hlahti.fi,Isännöintipalvelu Heikki Lahti Oy Isännöitsijä: Jussi Roininen Puh. 050 471 4505 Sähköposti: jussi@hlahti.fi,Oma,272.0,272.0,3,,Siljonkatu 73
+20,https://www.etuovi.com/kohde/bd6439,23072025,True,,bd6439,1h + kk,4/5,,,,0.0,0.0,1,,Aleksanterinkatu 54 A15
+21,https://www.etuovi.com/kohde/80427175,23072025,True,,80427175,2h + kk + kh + s + lasitettu parveke,2/5,"OIT Isännöinti Oy, Klaus Puolitaival","OIT Isännöinti Oy, Klaus Puolitaival",Oma,178.5,311.64,2,,Isokatu 78 A
+22,https://www.etuovi.com/kohde/599128,23072025,True,,599128,"2h, k",3/3 (ylin kerros),Oiva Isännöinti Tuira Oy,Oiva Isännöinti Tuira Oy,Oma,245.7,245.7,2,,Tarkka-ampujankatu 31 A
+23,https://www.etuovi.com/kohde/20995328,23072025,True,,20995328,"2h, k, oh, kph / wc, lasitettu parveke",3/3,Kiinteistötahkola / Aleksi Lepistö p. 0207 488 224 aleksi.lepisto@kiinteistotahkola.fi,Kiinteistötahkola / Aleksi Lepistö p. 0207 488 224 aleksi.lepisto@kiinteistotahkola.fi,Vuokra,173.6,279.76,2,30.12.2024,Aleksanterinkatu 58
+24,https://www.etuovi.com/kohde/1396092,23072025,True,,1396092,"2h, k, kph / wc, parveke",2/3,Taloyhtiössä on sauna,,Oma,202.0,202.0,2,,Kirkkokatu 56
+25,https://www.etuovi.com/kohde/20217489,23072025,True,,20217489,2h + k + kph + et,1/2,Jukka Piispanen 050 370 8535 jukka.piispanen@palolapiispanen.fi,Jukka Piispanen 050 370 8535 jukka.piispanen@palolapiispanen.fi,Oma,123.2,207.2,2,,Peltokatu 22
+26,https://www.etuovi.com/kohde/20205626,23072025,True,,20205626,1h + kk,1/5,"Isännöintitoimisto Oiva Isännöinti Tuira Oy, Hallituskatu 26 A, 90100 Oulu. Isännöitsijä Pekka Auvinen 08 415 411 89.","Isännöintitoimisto Oiva Isännöinti Tuira Oy, Hallituskatu 26 A, 90100 Oulu. Isännöitsijä Pekka Auvinen 08 415 411 89.",Oma,140.3,216.55,1,,Kirkkokatu 67-69
+27,https://www.etuovi.com/kohde/21029015,23072025,True,,21029015,2h + k,3/3,Isännöintipalvelu Heikki Lahti Oy Tomi Haapaniemi tomi@hlahti.fi,Isännöintipalvelu Heikki Lahti Oy Tomi Haapaniemi tomi@hlahti.fi,Vuokra,194.88,393.24,2,30.12.2055,Tarkka-ampujankatu 14
+28,https://www.etuovi.com/kohde/58753080,23072025,True,,58753080,"3h, k, kph, lasp",Ylin kerros,Jarno Hakkarainen,Jarno Hakkarainen,Vuokra,408.0,558.0,3,1.1.2055,Aleksanterinkatu 75
+29,https://www.etuovi.com/kohde/593061,23072025,True,,593061,"3h, k, s",Ei tiedossa,Kiinteistö-Tahkola Oulu Oy,Kiinteistö-Tahkola Oulu Oy,Vuokra,280.0,280.0,3,Vuokrasopimus päättyy 31.12.2060,Uusikatu 88 as
+30,https://www.etuovi.com/kohde/80421533,23072025,True,,80421533,"3h, k, kph / wc, vh, parveke",1/3,"Oiva Isännöinti Oulu Oy, Pekka Kallunki, 010 755 6233","Oiva Isännöinti Oulu Oy, Pekka Kallunki, 010 755 6233",Vuokra,308.4,331.53,3,31.12.2054,Tarkka-ampujankatu 18 C
+31,https://www.etuovi.com/kohde/80419380,23072025,True,,80419380,"2h, kk, kph",4/5,"Kiinteistötahkola, Lassi Ylikulju, lassi.ylikulju@kiinteistotahkola.fi, 0207480234","Kiinteistötahkola, Lassi Ylikulju, lassi.ylikulju@kiinteistotahkola.fi, 0207480234",Oma,0.0,218.0,2,,Isokatu 73 A
+32,https://www.etuovi.com/kohde/594553,23072025,True,,594553,"1h, kk",Ei tiedossa,Oiva Isännöinti Oulu Oy,Oiva Isännöinti Oulu Oy,Vuokra,156.0,250.26,1,Vuokrasopimus päättyy 01.01.2055,Tarkka-ampujankatu 18 D
+33,https://www.etuovi.com/kohde/21468071,23072025,True,,21468071,"1h, k, alk",5/5,Kiinteistö-Tahkola Oulu OyIsännöitsijä; Immo Rautiainen Sähköposti; immo.rautiainen@kiinteistötahkola.fi Puh; 020 748 8209,Kiinteistö-Tahkola Oulu OyIsännöitsijä; Immo Rautiainen Sähköposti; immo.rautiainen@kiinteistötahkola.fi Puh; 020 748 8209,Oma,114.7,999.99,1,,Isokatu 87
+34,https://www.etuovi.com/kohde/54311066,23072025,True,,54311066,"4h, k, s, lasp",Ei tiedossa,Oit Oy / Klaus Puolitaival,Oit Oy / Klaus Puolitaival,Oma,376.13,805.36,4,,Isokatu 78
+35,https://www.etuovi.com/kohde/1388105,23072025,True,,1388105,"1h, kt, kph / wc, s, lasitettu parveke",3/7,Hissi,,Oma,113.6,610.03,1,,Aleksanterinkatu 67
+36,https://www.etuovi.com/kohde/20240378,23072025,True,,20240378,5h + k + sa,2/3,"Kiinteistö-Tahkola Oulu Oy | Aleksi Lepistö Lumijoentie 1, 90400 Oulu","Kiinteistö-Tahkola Oulu Oy | Aleksi Lepistö Lumijoentie 1, 90400 Oulu",Vuokra,279.8,846.4,5,30.12.2059,Aleksanterinkatu 58 A 4
+37,https://www.etuovi.com/kohde/593216,23072025,True,,593216,"4h, k, kh",2/3,OIT Isännöinti Oy,OIT Isännöinti Oy,Oma,248.5,336.54,4,,Puistokatu 32 A
+38,https://www.etuovi.com/kohde/596368,23072025,True,,596368,"2h, kk",3/6,Oiva Isännöinti Oulu Oy,Oiva Isännöinti Oulu Oy,Vuokra,218.0,219.6,2,Vuokrasopimus päättyy 01.01.2055,Tarkka-ampujankatu 18 D
+39,https://www.etuovi.com/kohde/1390292,23072025,True,,1390292,"2h, kk, kph, vh",2/5,"Hissi, Taloyhtiössä on sauna",,Oma,135.0,135.0,2,,Isokatu 77
+40,https://www.etuovi.com/kohde/80399546,23072025,True,,80399546,"2h, k, kph, s, lasit.parveke",3/3 (ylin kerros),"Retta Isännöinti Oy, Oulu, Minna Juntunen, minna.juntunen@retta.fi, 0102281800","Retta Isännöinti Oy, Oulu, Minna Juntunen, minna.juntunen@retta.fi, 0102281800",Vuokra,261.59,261.59,2,30.12.2056,Tarkka-ampujankatu 16 C
+41,https://www.etuovi.com/kohde/20261791,23072025,True,,20261791,2h + kt,3/12,immo.rautiainen@kiinteistotahkola.fi. p.02077488209,immo.rautiainen@kiinteistotahkola.fi. p.02077488209,Oma,0.0,122.1,2,,Isokatu 87
+42,https://www.etuovi.com/kohde/20472563,23072025,True,,20472563,3h + kt + khh + s,3/5,Kiinteistö-Tahkola Oulu Oy Immo Rautiainen p. 020 7488209 immo.rautiainen@kiinteistotahkola.fi,Kiinteistö-Tahkola Oulu Oy Immo Rautiainen p. 020 7488209 immo.rautiainen@kiinteistotahkola.fi,Oma,215.45,217.2,3,,Isokatu 87
+43,https://www.etuovi.com/kohde/20800244,23072025,True,,20800244,"3h, kk, kh, sa, las.parveke",2/5,"Kiinteistö-Tahkola Oulu Oy Lumijoentie 1, 90400 Oulu Puh. 0207 480 200","Kiinteistö-Tahkola Oulu Oy Lumijoentie 1, 90400 Oulu Puh. 0207 480 200",Oma,248.5,248.5,3,,Limingankatu 22
+44,https://www.etuovi.com/kohde/2265205,23072025,True,,2265205,Tilava kaksio Heinäpäässä,2/3,564-005-0016-0001,,Vuokra,284.93,322.27,T,,Tarkka-Ampujankatu 20
+45,https://www.etuovi.com/kohde/20099866,23072025,True,,20099866,5h + k + s,4/4,"NET Isännöinti Oy Tarjamari Huhtala Kangaskontiontie 10, 90240 Oulu P 040 163 7647 tarjamari.huhtala@taloasema.fi","NET Isännöinti Oy Tarjamari Huhtala Kangaskontiontie 10, 90240 Oulu P 040 163 7647 tarjamari.huhtala@taloasema.fi",Oma,543.4,0.0,5,,Tarkka-ampujankatu 41
+46,https://www.etuovi.com/kohde/20691712,23072025,True,,20691712,2h + k + kph / wc + las.parveke,2/5,"Kiinteistö-Tahkola Oulu Oy, Lassi Ylikulju, p. 020 7480234","Kiinteistö-Tahkola Oulu Oy, Lassi Ylikulju, p. 020 7480234",Oma,225.15,367.65,2,,Isokatu 73
+47,https://www.etuovi.com/kohde/80390431,23072025,True,,80390431,"2h, k, kph, lasitettu parveke",3/3 (ylin kerros),"Kiinteistö-Tahkola Oulu Oy, Aleksi Lepistö, 0207488224","Kiinteistö-Tahkola Oulu Oy, Aleksi Lepistö, 0207488224",Vuokra,3.13,277.76,2,30.12.2059,Aleksanterinkatu 58 C
+48,https://www.etuovi.com/kohde/80388484,23072025,True,,80388484,"4h, k, kph / khh, wc, lasitettu parveke",4/4 (ylin kerros),"Isännöinti Vuorma Oy, Ulla Pitkänen, 044 762 5000","Isännöinti Vuorma Oy, Ulla Pitkänen, 044 762 5000",Oma,324.9,449.72,4,,Aleksanterinkatu 50 D
+49,https://www.etuovi.com/kohde/20683877,23072025,True,,20683877,"1h, kk, kph",2/3,Isännöintitoimisto Tuiran Isännöitsijätoimisto Oy Hallituskatu 26 A 90100 Oulu Isännöitsijä Pasi Räisänen (08) 415 411 81,Isännöintitoimisto Tuiran Isännöitsijätoimisto Oy Hallituskatu 26 A 90100 Oulu Isännöitsijä Pasi Räisänen (08) 415 411 81,Vuokra,266.4,388.5,1,30.12.2055,Harjapäänkatu 16
+50,https://www.etuovi.com/kohde/80387599,23072025,True,,80387599,1h + k + kph,3/3 (ylin kerros),564-5-6-6-L1,"Oiva Isännöinti Oulu Oy, Pekka Kallunki, oulu@oi.fi, 010 755 6233",Vuokra,153.45,153.45,1,30.12.2045,Rommakkokatu 30 B
+51,https://www.etuovi.com/kohde/590897,23072025,True,,590897,"2h, k, s",2/4,"Retta isännöinti Oy, Oulu","Retta isännöinti Oy, Oulu",Oma,174.0,205.95,2,,Torikatu 64 C
+52,https://www.etuovi.com/kohde/80386260,23072025,True,,80386260,3h + kk + kh + vh + parveke,4/6,564-5-10-2-T,"Retta Isännöinti. Oulu, Kari Myllyoja, kari.myllyoja@retta.fi, 010 228 8407",Oma,224.2,489.7,3,,Isokatu 69 B
+53,https://www.etuovi.com/kohde/589846,23072025,True,,589846,"4h, k",3/4,"Retta Isännöinti Oy, Oulu","Retta Isännöinti Oy, Oulu",Oma,364.0,364.0,4,,Kirkkokatu 55 A
+54,https://www.etuovi.com/kohde/20443576,23072025,True,,20443576,"2h, k, kh / wc, s, vh, parv.",3/5,Jussi Roininen Isännöintipalvelu Heikki Lahti Oy Torikatu 22 A 4.krs 90100 Oulu p. 050 4714505 sp. jussi@hlahti.fi,Jussi Roininen Isännöintipalvelu Heikki Lahti Oy Torikatu 22 A 4.krs 90100 Oulu p. 050 4714505 sp. jussi@hlahti.fi,Oma,217.15,217.15,2,,Kirkkokatu 61
+55,https://www.etuovi.com/kohde/80360800,23072025,True,,80360800,"3h, k, s",2/3,"Isännöinti Tahkola, Ilkka Moilanen, ilkka.moilanen@kiinteistotahkola.fi, 0207480258","Isännöinti Tahkola, Ilkka Moilanen, ilkka.moilanen@kiinteistotahkola.fi, 0207480258",Oma,292.0,335.8,3,,Torikatu 53
+56,https://www.etuovi.com/kohde/1381011,23072025,True,,1381011,"2h, k, kph, parveke",6/6,Taloyhtiössä on sauna,,Vuokra,220.4,241.1,2,30.12.2055,Tarkka-ampujankatu 18
+57,https://www.etuovi.com/kohde/80378796,23072025,True,,80378796,"1h, kk, kph, vh",3/6,"Oiva Isännöinti Oulu Oy, Pekka Kallunki, 010 755 6233","Oiva Isännöinti Oulu Oy, Pekka Kallunki, 010 755 6233",Vuokra,169.65,250.38,1,30.12.2055,Tarkka-ampujankatu 20 D
+58,https://www.etuovi.com/kohde/585603,23072025,True,,,,,,,,213.5,213.5,,,Peltokatu 18 C
+59,https://www.etuovi.com/kohde/1378125,23072025,True,,1378125,"4h, k, kh, vh",1/3,Taloyhtiössä on sauna,,Oma,248.5,336.54,4,,Puistokatu 32
+60,https://www.etuovi.com/kohde/21590228,23072025,True,,21590228,2h + kt + s,7/16,Kiinteistö-Tahkola Oulu Oy Aleksi Yppärilä Lumijoentie 1 90400 OULU aleksi.ypparila@kiinteistotahkola.fi 020 7488 252,Kiinteistö-Tahkola Oulu Oy Aleksi Yppärilä Lumijoentie 1 90400 OULU aleksi.ypparila@kiinteistotahkola.fi 020 7488 252,Oma,156.75,0.0,2,,Isokatu 87
+61,https://www.etuovi.com/kohde/20000240,23072025,True,,20000240,1h + kk + s + kh + lasitettu parveke,3/3,"Tomi Haapaniemi Isännöintipalvelu Heikki Lahti Oy Torikatu 22 A 4krs., 90100 Oulu P. 08 3117106. Sähköposti. tomi@hlahti.com","Tomi Haapaniemi Isännöintipalvelu Heikki Lahti Oy Torikatu 22 A 4krs., 90100 Oulu P. 08 3117106. Sähköposti. tomi@hlahti.com",Oma,146.15,187.59,1,,Kirkkokatu 52

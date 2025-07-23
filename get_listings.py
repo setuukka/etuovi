@@ -22,6 +22,30 @@ import requests
 from pathlib import Path
 import numpy as np
 
+poistettavat_sarakkeet = ['Unnamed: 0','soup','price','Sijainti','Omistusmuoto',
+       'Huoneistoselitelmä', 'Huoneita', 'Asuintilojen pinta-ala',
+       'Kokonaispinta-ala', 'Lisätietoja pinta-alasta', 'Rakennusvuosi', 'Käyttöönottovuosi', 'Vapautuminen', 'Hinta',
+       'Vastike', 'Muut maksut', 'Sauna', 'Hissi', 'Asunnon kunto',
+       'Lämmitysjärjestelmän kuvaus', 'Rakennus- ja pintamateriaalit',
+       'Keittiön kuvaus', 'Kylpyhuoneen kuvaus', 'Olohuoneen kuvaus',
+       'Säilytystilojen kuvaus', 'Kattotyyppi', 'Kattomateriaali',
+       'Kattomateriaalin kuvaus',  'Huolto', 'Taloyhtiöön kuuluu',
+       'Tehdyt remontit', 'Tulevat remontit', 'Energialuokka', 'Tontin koko','Kaavoitustilanne', 'Tontin vuokra',
+       'Tontin vuokraaja', 'Parveke', 'Parvekkeen kuvaus', 'Tietoliikenne', 'Kohteen lisätiedot',
+       'Muuta taloyhtiöstä', 'Taloyhtiön autopaikat', 'Palvelut',
+       'Liikenneyhteydet', 'Tiedustelut', 'Makuuhuoneiden kuvaus',
+       'Kaavoitustiedot', 'Lisätietoa auton säilytyksestä', 'Saunan kuvaus',
+       'Vesihuollon kuvaus', 'Viemäri', 'Asuntoon kuuluu', 'Ilmanvaihto',
+       'Näkymät', 'Lisätietoja kunnosta', 'Lisätietoja',
+       'Muuta kauppaan kuuluvaa', 'WC-tilojen kuvaus', 'Kattotyypin kuvaus',
+       'Tulisija', 'Tilojen kuvaus', 'Asbestikartoitus',
+       'Kodinhoitohuoneen kuvaus', 'Kiinteistötunnus', 'Pihan kuvaus',
+       'Asuinkerrosten määrä', 'Lämmitysjärjestelmä', 'Vesijohto',
+       'Asunnon käytössä olevat autopaikat', 'Lisätietoa tontin omistuksesta',
+       'Lisätietoa tontista', 'Ajo-ohjeet']
+
+debug_printing = True
+
 def current_date():
     return datetime.now().strftime('%d%m%Y')
 
@@ -74,6 +98,7 @@ def update_listing_file(url_list, filename='all_listings.csv'):
     df_combined.drop_duplicates(subset = 'url', keep = 'last', inplace = True)
     #Tallennetaan df csv
     df_combined.to_csv(file_path, index = False)
+
     return df_combined
 
 def get_urls(base_url, page):
@@ -165,26 +190,34 @@ def get_soup(df):
 
     for index, row in df.iterrows():
         url = row['url']
+        if debug_printing:
+            print(f"getting soup for: {url}")
         try:
             #print(f"Fetching: {url}")
             response = requests.get(url)
             if response.status_code == 200:
                 soup = BeautifulSoup(response.content, 'html.parser')
                 soups.append(str(soup))  # tallenna tekstinä
+                if debug_printing:
+                    print(f"Got response status code {response.status_code} and added soup number {len(soups)} to soups list ") 
             else:
                 soups.append(None)
                 print(f"Failed with status code {response.status_code}")
+                if debug_printing:
+                    print(f"Soup failed with code {response.status_code}")
         except Exception as e:
             print(f"Error fetching {url}: {e}")
             soups.append(None)
 
         wait_random()
-
     df['soup'] = soups
     return df
 
 def extract_price(soup):
-    soup = BeautifulSoup(soup, 'html.parser')
+    try:
+        soup = BeautifulSoup(soup, 'html.parser')
+    except TypeError:
+        hinta = 0
     try:
         h3_tags = soup.find_all('h3')
         if not h3_tags:
@@ -197,7 +230,10 @@ def extract_price(soup):
     return hinta
 
 def extract_address(soup):
-    soup = BeautifulSoup(soup, 'html.parser')
+    try:
+        soup = BeautifulSoup(soup, 'html.parser')
+    except TypeError:
+        address = ""
     try:
         h1_tags = soup.find_all('h1')
         print(h1_tags)
@@ -211,10 +247,11 @@ def extract_address(soup):
     return address
 
 def extract_em_span_pairs(soup):
-    if isinstance(soup, str):
-        soup = BeautifulSoup(soup, 'html.parser')
-
     em_dict = {}
+    try:
+        soup = BeautifulSoup(soup, 'html.parser')
+    except TypeError:
+        em_dict = {}
     try:
         em_tags = soup.find_all('em')
         #em_tags = em_tags[0:10]
@@ -232,14 +269,44 @@ def extract_em_span_pairs(soup):
         em_dict = {}
     return em_dict
 
+def extract_hoitovastike(soup):
+    try:
+        soup = BeautifulSoup(soup, 'html.parser')
+    except TypeError:
+        hoitovastike = float(0.0)
+    try:
+        hoitovastike = soup.find_all('p')
+        hoitovastike = str(hoitovastike)
+        hoitovastike = hoitovastike.split('Hoitovastike')[1][:100]
+        hoitovastike = re.search(r'\d{1,3},\d{2}', hoitovastike)
+        hoitovastike = float(hoitovastike.group().replace(',','.'))
+    except Exception as e:
+        hoitovastike = float(0.0)
+    return hoitovastike
+
+def extract_yhtiovastike_yhteensa(soup):
+    try:
+        soup = BeautifulSoup(soup, 'html.parser')
+    except TypeError:
+        yhtiovastike_yhteensa = float(0.0)
+    try:
+        yhtiovastike_yhteensa = soup.find_all('p')
+        yhtiovastike_yhteensa = str(yhtiovastike_yhteensa)
+        yhtiovastike_yhteensa = yhtiovastike_yhteensa.split('Yhtiövastike yhteensä')[1][:100]
+        yhtiovastike_yhteensa = re.search(r'\d{1,3},\d{2}', yhtiovastike_yhteensa)
+        yhtiovastike_yhteensa = float(yhtiovastike_yhteensa.group().replace(',','.'))
+    except Exception as e:
+        yhtiovastike_yhteensa = float(0.0)
+    return yhtiovastike_yhteensa
+
 
 if __name__ == "__main__":
     base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086'
     page = 1
     seen_hrefs = set()
     url_list = []
-    #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
-    get_urls(base_url, page) 
+    get_urls(base_url, page) #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
+
 
     temp_df = pd.read_csv('latest_listings.csv')
     url_list = temp_df['url']
@@ -247,9 +314,15 @@ if __name__ == "__main__":
     df_combined = update_listing_file(url_list)
     print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
     
+    #TAllennetaan väliaikaisesti testiä varten df_combined csv:ksi, jotta ei tarvitse tehdä etuovesta hakuja testiä varten
+    #df_combined.to_csv("csv_with_soup_temp.csv")
+    #df_combined = pd.read_csv('csv_with_soup_temp.csv')
+
     #Luodaan df niistä riveistä, joita puuttuu hinta ja haetaan SOUP niille
     try:
         df_no_values = df_combined[df_combined['price'].isna()].copy()
+        if debug_printing:
+            print(f"Created a dataframe of missing values with {len(df_no_values)} rows")
         df_no_values = get_soup(df_no_values)
         df_combined.update(df_no_values)
 
@@ -258,22 +331,16 @@ if __name__ == "__main__":
     #Yhdisteään haetut tiedot takaisin
     #print(df_combined.head()) #DEBUG
 
-    #TAllennetaan väliaikaisesti testiä varten df_combined csv:ksi, jotta ei tarvitse tehdä etuovesta hakuja testiä varten
-    df_combined.to_csv("csv_with_soup_temp.csv")
-    df_combined = pd.read_csv('csv_with_soup_temp.csv')
-    #print(df_combined.head()) #DEBUG
-    #TEHDÄÄN VÄLIAIKAISESTI lyhyt DF
-    #df_combined =df_combined.head(1)
-    #soup = df_combined['soup']
-
-    #Haetaan hinta ja muut parametrit
+    df_combined.to_csv("df_after_soup_debug.csv")    #Haetaan hinta ja muut parametrit
 
 
     def process_listing(soup):
         return {
             'price': extract_price(soup),
             **extract_em_span_pairs(soup),
-            'address': extract_address(soup)
+            'address': extract_address(soup),
+            'hoitovastike': extract_hoitovastike(soup),
+            'yhtiovastike_yhteensa' : extract_yhtiovastike_yhteensa(soup)
         }
 
     for idx, row in df_combined.iterrows():
@@ -285,28 +352,18 @@ if __name__ == "__main__":
         data = extract_em_span_pairs(row['soup'])
 
     #print(df_combined.columns)
-    df_combined.drop(columns = ['Muut maksut','Hinta','Rakennusvuosi','soup','Omistusmuoto','Huoneita','Lisätietoja pinta-alasta','Vapautuminen','Parvekkeen kuvaus','Asuntoon kuuluu','Ilmanvaihto','Rakennus- ja pintamateriaalit','Keittiön kuvaus','Kylpyhuoneen kuvaus', 'Olohuoneen kuvaus', 'Makuuhuoneiden kuvaus',
-       'Säilytystilojen kuvaus', 'Kattotyyppi', 'Kattomateriaali','Isännöitsijän yhteystiedot', 'Huolto',
-       'Taloyhtiöön kuuluu','Energialuokka','Sauna','Parveke','Hissi',
-       'Tontin koko','Kaavoitustilanne', 'Tontin vuokraaja','Palvelut', 'Liikenneyhteydet', 'Näkymät',
-       'Kokonaispinta-ala', 'Käyttöönottovuosi', 'Lisätietoja kunnosta',
-       'Kattomateriaalin kuvaus', 'Muuta taloyhtiöstä','Huoneistoselitelmä','Vastike',
-       'Taloyhtiön autopaikat', 'Kaavoitustiedot', 'Lisätietoja',
-       'Tietoliikenne', 'Kohteen lisätiedot', 'Vesihuollon kuvaus', 'Viemäri',
-       'Tiedustelut', 'Muuta kauppaan kuuluvaa', 'WC-tilojen kuvaus',
-       'Saunan kuvaus', 'Kattotyypin kuvaus', 'Lisätietoa auton säilytyksestä',
-       'Tontin vuokra', 'Tulisija', 'Tilojen kuvaus', 'Asbestikartoitus',
-       'Kodinhoitohuoneen kuvaus', 'Kiinteistötunnus', 'Pihan kuvaus',
-       'Asuinkerrosten määrä', 'Lämmitysjärjestelmä', 'Vesijohto',
-       'Asunnon käytössä olevat autopaikat', 'Lisätietoa tontin omistuksesta','Lisätietoa tontista', 'Kuntotarkastus', 'Ranta',
-       'Ajo-ohjeet'], inplace = True)
+
+    df_combined = df_combined.drop(columns=poistettavat_sarakkeet, errors='ignore')
     
     df_combined['huoneita'] = df_combined['Tyyppi'].str[0]
     df_combined['tontin_vuokra-aika'] = df_combined['Tontin vuokra-aika päättyy'].fillna(df_combined['Tontin vuokra-aika'])
     df_combined.drop(columns=['Tontin vuokra-aika','Tontin vuokra-aika päättyy'],inplace = True)
 
+    #Otetaan osoitteesta vain katuosoite-osuus
+    df_combined['katuosoite'] = df_combined['address'].str.split(',').str[0].str.strip()
+    df_combined.drop(columns=['address'], inplace = True)
 
     #print(df_combined)
-    df_combined.to_csv("riisuttu.csv")
+    df_combined.to_csv("all_listings.csv")
 
      
