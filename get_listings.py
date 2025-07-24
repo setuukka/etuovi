@@ -22,9 +22,8 @@ import requests
 from pathlib import Path
 import numpy as np
 
-poistettavat_sarakkeet = ['Unnamed: 0','soup','price','Sijainti','Omistusmuoto',
-       'Huoneistoselitelmä', 'Huoneita', 'Asuintilojen pinta-ala',
-       'Kokonaispinta-ala', 'Lisätietoja pinta-alasta', 'Rakennusvuosi', 'Käyttöönottovuosi', 'Vapautuminen', 'Hinta',
+poistettavat_sarakkeet = ['Unnamed: 0','soup','Sijainti','Omistusmuoto',
+       'Huoneistoselitelmä', 'Huoneita', 'Lisätietoja pinta-alasta', 'Rakennusvuosi', 'Käyttöönottovuosi', 'Vapautuminen', 'Hinta',
        'Vastike', 'Muut maksut', 'Sauna', 'Hissi', 'Asunnon kunto',
        'Lämmitysjärjestelmän kuvaus', 'Rakennus- ja pintamateriaalit',
        'Keittiön kuvaus', 'Kylpyhuoneen kuvaus', 'Olohuoneen kuvaus',
@@ -42,9 +41,9 @@ poistettavat_sarakkeet = ['Unnamed: 0','soup','price','Sijainti','Omistusmuoto',
        'Kodinhoitohuoneen kuvaus', 'Kiinteistötunnus', 'Pihan kuvaus',
        'Asuinkerrosten määrä', 'Lämmitysjärjestelmä', 'Vesijohto',
        'Asunnon käytössä olevat autopaikat', 'Lisätietoa tontin omistuksesta',
-       'Lisätietoa tontista', 'Ajo-ohjeet']
+       'Lisätietoa tontista', 'Ajo-ohjeet','Taloyhtiön nimi','Isännöitsijän yhteystiedot','Kokonaispinta-ala']
 
-debug_printing = True
+debug_printing = False
 
 def current_date():
     return datetime.now().strftime('%d%m%Y')
@@ -75,10 +74,14 @@ def wait_random():
 def update_listing_file(url_list, filename='all_listings.csv'):
     file_path = Path(filename)
     if file_path.exists():
+
         df_new = pd.read_csv('latest_listings.csv')
+        if debug_printing:
+            print(f"read {len(df_new)} listings to compare to old listings")
         #luetaan viimeisin hakutulos dataframeen
         df_old = pd.read_csv(file_path)
-        #print(df_old)
+        if debug_printing:
+            print(f"Old dataframe contains {len(df_old)} listings")
         #asetetaan kaikki oletuksena ei-aktiivisiksi
         df_old['active'] = False
         #päivitetään rivit, jotka löytyvät uudesta hausta
@@ -92,6 +95,8 @@ def update_listing_file(url_list, filename='all_listings.csv'):
             df_new[~df_new['url'].isin(df_old['url'])]
         ], ignore_index=True)
     else:
+        if debug_printing:
+            print(f"Old file was not found. Using only today's listings")
         #Tiedostoa ei ole, käytetään vain uusia
         df_combined = pd.read_csv('latest_listings.csv')
         #poistetaan duplikaatot
@@ -214,22 +219,31 @@ def get_soup(df):
     return df
 
 def extract_price(soup):
+    if debug_printing:
+        print(f"We are in extract_price function")
     try:
         soup = BeautifulSoup(soup, 'html.parser')
     except TypeError:
+        if debug_printing:
+            print(f"We got TypError while soup = BeautifulSoup(soup, 'html.parser')")
         hinta = 0
     try:
         h3_tags = soup.find_all('h3')
         if not h3_tags:
+            if debug_printing:
+                print("No H3 tags were found to extract price from")
             return 0
         hinta_str = h3_tags[0].get_text(strip=True).replace('\xa0', '').replace('€', '').strip()
         hinta = int(hinta_str)
+        if debug_printing:
+            print(f"Hinta_str is {hinta_str} and Hinta is {hinta}")
 
     except Exception:
         hinta = 0
     return hinta
 
 def extract_address(soup):
+
     try:
         soup = BeautifulSoup(soup, 'html.parser')
     except TypeError:
@@ -285,6 +299,7 @@ def extract_hoitovastike(soup):
     return hoitovastike
 
 def extract_yhtiovastike_yhteensa(soup):
+
     try:
         soup = BeautifulSoup(soup, 'html.parser')
     except TypeError:
@@ -299,6 +314,28 @@ def extract_yhtiovastike_yhteensa(soup):
         yhtiovastike_yhteensa = float(0.0)
     return yhtiovastike_yhteensa
 
+def extract_year_built(soup):
+    if debug_printing:
+        print(f"We are in extract_year_built function")
+    try:
+        soup = BeautifulSoup(soup, 'html.parser')
+    except TypeError:
+        if debug_printing:
+            print(f"We got TypError while soup = BeautifulSoup(soup, 'html.parser')")
+        valmistusvuosi = 0
+    try:
+        h3_tags = soup.find_all('h3')
+        if not h3_tags:
+            if debug_printing:
+                print("No H3 tags were found to extract price from")
+            return 0
+        valmistusvuosi = int(h3_tags[2].get_text())
+        if debug_printing:
+            print(f"Valmistusvuosi on {valmistusvuosi}")
+
+    except Exception:
+        valmistusvuosi = 0
+    return valmistusvuosi
 
 if __name__ == "__main__":
     base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086'
@@ -310,9 +347,11 @@ if __name__ == "__main__":
 
     temp_df = pd.read_csv('latest_listings.csv')
     url_list = temp_df['url']
-    print(f"Calling function update_listing_file with {len(url_list)} rows")
+    if debug_printing:
+        print(f"Calling function update_listing_file with {len(url_list)} rows")
     df_combined = update_listing_file(url_list)
-    print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
+    if debug_printing:
+        print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
     
     #TAllennetaan väliaikaisesti testiä varten df_combined csv:ksi, jotta ei tarvitse tehdä etuovesta hakuja testiä varten
     #df_combined.to_csv("csv_with_soup_temp.csv")
@@ -320,13 +359,15 @@ if __name__ == "__main__":
 
     #Luodaan df niistä riveistä, joita puuttuu hinta ja haetaan SOUP niille
     try:
-        df_no_values = df_combined[df_combined['price'].isna()].copy()
+        df_no_values = df_combined[df_combined['hinta'].isna()].copy()
         if debug_printing:
             print(f"Created a dataframe of missing values with {len(df_no_values)} rows")
         df_no_values = get_soup(df_no_values)
         df_combined.update(df_no_values)
 
     except KeyError:
+        if debug_printing:
+            print(f"Got KeyError while creating missing prices dataframe!")
         df_combined = get_soup(df_combined)
     #Yhdisteään haetut tiedot takaisin
     #print(df_combined.head()) #DEBUG
@@ -336,7 +377,8 @@ if __name__ == "__main__":
 
     def process_listing(soup):
         return {
-            'price': extract_price(soup),
+            'hinta': extract_price(soup),
+            'valmistusvuosi': extract_year_built(soup),
             **extract_em_span_pairs(soup),
             'address': extract_address(soup),
             'hoitovastike': extract_hoitovastike(soup),
@@ -344,10 +386,14 @@ if __name__ == "__main__":
         }
 
     for idx, row in df_combined.iterrows():
-        data = process_listing(row['soup'])
-        for key, value in data.items():
-            df_combined.at[idx, key] = value
-
+        try:
+            data = process_listing(row['soup'])
+            if debug_printing:
+                print(f"idx={idx} keys: {list(data.keys())}")  # ✅ Tulosta mukana olevat kentät
+            for key, value in data.items():
+                df_combined.at[idx, key] = value
+        except Exception as e:
+            print(f"Error processing idx={idx}: {e}")
     for idx, row in df_combined.iterrows():
         data = extract_em_span_pairs(row['soup'])
 
@@ -363,6 +409,21 @@ if __name__ == "__main__":
     df_combined['katuosoite'] = df_combined['address'].str.split(',').str[0].str.strip()
     df_combined.drop(columns=['address'], inplace = True)
 
+    #Muutetaan koko floatiksi
+    df_combined['Asuintilojen pinta-ala'] = df_combined['Asuintilojen pinta-ala'].str.split(" ").str[0].str.replace(",",".")
+    df_combined['Asuintilojen pinta-ala'] = df_combined['Asuintilojen pinta-ala'].astype(float)
+    #Lasketaan neliöhinta ja -vastike
+
+    try:
+        df_combined['neliohinta'] = df_combined['hinta'] / df_combined['Asuintilojen pinta-ala']
+    except KeyError:
+        print(f"df_combined['hinta'] not found, KeyError")
+
+    try:
+
+     df_combined['neliovastike'] = df_combined['hoitovastike'] / df_combined['Asuintilojen pinta-ala']
+    except:
+        print("Error while calculating neliovastike")
     #print(df_combined)
     df_combined.to_csv("all_listings.csv")
 
