@@ -22,7 +22,7 @@ import requests
 from pathlib import Path
 import numpy as np
 
-poistettavat_sarakkeet = ['Unnamed: 0','soup','Sijainti','Omistusmuoto',
+poistettavat_sarakkeet = ['Unnamed: 0','Sijainti','Omistusmuoto',
        'Huoneistoselitelmä', 'Huoneita', 'Lisätietoja pinta-alasta', 'Rakennusvuosi', 'Käyttöönottovuosi', 'Vapautuminen', 'Hinta',
        'Vastike', 'Muut maksut', 'Sauna', 'Hissi', 'Asunnon kunto',
        'Lämmitysjärjestelmän kuvaus', 'Rakennus- ja pintamateriaalit',
@@ -43,8 +43,7 @@ poistettavat_sarakkeet = ['Unnamed: 0','soup','Sijainti','Omistusmuoto',
        'Asunnon käytössä olevat autopaikat', 'Lisätietoa tontin omistuksesta',
        'Lisätietoa tontista', 'Ajo-ohjeet','Taloyhtiön nimi','Isännöitsijän yhteystiedot','Kokonaispinta-ala']
 
-debug_printing = False
-
+debug_printing = True
 def current_date():
     return datetime.now().strftime('%d%m%Y')
 
