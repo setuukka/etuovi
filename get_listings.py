@@ -21,6 +21,7 @@ import re
 import requests
 from pathlib import Path
 import numpy as np
+import os
 
 poistettavat_sarakkeet = ['Unnamed: 0','Sijainti','Omistusmuoto',
        'Huoneistoselitelmä', 'Huoneita', 'Lisätietoja pinta-alasta', 'Rakennusvuosi', 'Käyttöönottovuosi', 'Vapautuminen', 'Hinta',
@@ -43,6 +44,10 @@ poistettavat_sarakkeet = ['Unnamed: 0','Sijainti','Omistusmuoto',
        'Asunnon käytössä olevat autopaikat', 'Lisätietoa tontin omistuksesta',
        'Lisätietoa tontista', 'Ajo-ohjeet','Taloyhtiön nimi','Isännöitsijän yhteystiedot','Kokonaispinta-ala']
 
+print("Käyttäjä:", os.getlogin())
+print("HOME:", os.environ.get("HOME"))
+
+
 debug_printing = True
 def current_date():
     return datetime.now().strftime('%d%m%Y')
@@ -57,13 +62,18 @@ else:
 #New code for geckodriver
 firefox_options = firefox_options()
 firefox_options.add_argument("-headless")
-
-#firefox_options.headless = True
+firefox_options.headless = True
+print("Headless-tile:", firefox_options.headless)
+firefox_options.set_preference("layers.acceleration.disabled", True)  # Poistaa GPU-kiihdytyksen
+firefox_options.set_preference("media.hardware-video-decoding.enabled", False)
 
 if not os.path.exists(geckodriver_path):
     raise FileExistsError(f"Geckodriver not found at {geckodriver_path}")
 
+print("Luodaan selainobjekti..")
 driver = webdriver.Firefox(service = Service(geckodriver_path),options = firefox_options)
+print("Selainobjekti luotu!")
+
 
 def wait_random():
     wait_time = random.uniform(1, 5)
@@ -114,7 +124,9 @@ def get_urls(base_url, page):
         print("Ei spotlight-mainosta tällä sivulla.")
 
     print(base_url)
+    print("Siirrytään sivulle..")
     driver.get(base_url)
+    print("Sivu ladattu!")
     driver.implicitly_wait(10)
 
     # #Jos tulee cookies-popup
