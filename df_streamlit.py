@@ -22,8 +22,10 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 import locale
-locale.setlocale(locale.LC_ALL, 'fi_FI.UTF-8')
-
+try:
+    locale.setlocale(locale.LC_ALL, 'fi_FI.UTF-8')
+except:
+    print("Locale not set")
 def format_finnish(x):
     try:
         return locale.format_string("%.2f", x, grouping=True)
