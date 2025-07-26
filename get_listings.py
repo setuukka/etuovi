@@ -43,12 +43,13 @@ poistettavat_sarakkeet = ['Unnamed: 0','Sijainti','Omistusmuoto',
        'Asuinkerrosten määrä', 'Lämmitysjärjestelmä', 'Vesijohto',
        'Asunnon käytössä olevat autopaikat', 'Lisätietoa tontin omistuksesta',
        'Lisätietoa tontista', 'Ajo-ohjeet','Taloyhtiön nimi','Isännöitsijän yhteystiedot','Kokonaispinta-ala']
+try:
+    print("Käyttäjä:", os.getlogin())
+    print("HOME:", os.environ.get("HOME"))
+except FileNotFoundError:
+    print("We are not in Linux")
 
-print("Käyttäjä:", os.getlogin())
-print("HOME:", os.environ.get("HOME"))
-
-
-debug_printing = True
+debug_printing = False
 def current_date():
     return datetime.now().strftime('%d%m%Y')
 
@@ -92,17 +93,26 @@ def update_listing_file(url_list, filename='all_listings.csv'):
         if debug_printing:
             print(f"Old dataframe contains {len(df_old)} listings")
         #asetetaan kaikki oletuksena ei-aktiivisiksi
+        if debug_printing:
+            print(f"Old df has {len(df_old['active'])} listings. Setting all to False")
         df_old['active'] = False
+        if debug_printing:
+            print(f"{df_old['active'].value_counts()}")
         #päivitetään rivit, jotka löytyvät uudesta hausta
         df_old.loc[df_old['url'].isin(url_list), 'active'] = True
+        if debug_printing:
+            print(f"Old df now has {len(df_old['active'])} listings, after setting still excisting to True")
         #Asetetaan df['removal_date'] arvoksi kuluva päivä, jos se on tyhjä ja df['active] = False
         df_old.loc[(df_old['removal_date'].isna()) & (df_old['active'] == False), 'removal_date'] = datetime.today().date()
-    
+        if debug_printing:
+            print(f"{len(df_old['active'] == False)} items set to False and deactive")
         #yhdistetään uudet rivit, jotka eivät ole vielä mukana
         df_combined = pd.concat([
             df_old,
             df_new[~df_new['url'].isin(df_old['url'])]
         ], ignore_index=True)
+        if debug_printing:
+            print(f"df_combined has {len(df_combined)} rows. old_df had{len(df_old)} rows. Change is {len(df_combined) - len(df_old)} rows")
     else:
         if debug_printing:
             print(f"Old file was not found. Using only today's listings")
@@ -373,6 +383,13 @@ if __name__ == "__main__":
         df_no_values = df_combined[df_combined['hinta'].isna()].copy()
         if debug_printing:
             print(f"Created a dataframe of missing values with {len(df_no_values)} rows")
+
+            jatka = input("Paina 'y' jatkaaksesi: ")
+            if jatka.lower() != "y":
+                print("Keskeytetään.")
+                exit()  # tai sys.exit()
+
+
         df_no_values = get_soup(df_no_values)
         df_combined.update(df_no_values)
 
@@ -399,8 +416,8 @@ if __name__ == "__main__":
     for idx, row in df_combined.iterrows():
         try:
             data = process_listing(row['soup'])
-            if debug_printing:
-                print(f"idx={idx} keys: {list(data.keys())}")  # ✅ Tulosta mukana olevat kentät
+            #if debug_printing:
+                #print(f"idx={idx} keys: {list(data.keys())}")  # ✅ Tulosta mukana olevat kentät
             for key, value in data.items():
                 df_combined.at[idx, key] = value
         except Exception as e:
