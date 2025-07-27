@@ -271,7 +271,7 @@ def extract_address(soup):
         address = ""
     try:
         h1_tags = soup.find_all('h1')
-        print(h1_tags)
+        #print(h1_tags)
         if not h1_tags:
             return 0
         address_str = h1_tags[0].get_text(strip=True).replace('\xa0', '').replace('€', '').strip()
@@ -455,4 +455,4 @@ if __name__ == "__main__":
     #print(df_combined)
     df_combined.to_csv("all_listings.csv")
 
-     
+    print(datetime.now())
