@@ -304,6 +304,29 @@ def extract_em_span_pairs(soup):
         em_dict = {}
     return em_dict
 
+def extract_em_div_pairs(soup):
+    em_dict = {}
+    try:
+        soup = BeautifulSoup(soup, 'html.parser')
+    except TypeError:
+        em_dict = {}
+    try:
+        em_tags = soup.find_all('em')
+        #em_tags = em_tags[0:10]
+        for em_tag in em_tags:
+            key = em_tag.get_text(strip=True)
+            value = em_tag.find_next('div').get_text(strip = True)
+
+            if len(value) > 0:
+                em_dict[key] = value
+            else:
+                em_dict[key] == ''
+
+    except Exception as e:
+        print(f"extract_em_div_pairs error: {e}")
+        em_dict = {}
+    return em_dict
+
 def extract_hoitovastike(soup):
     try:
         soup = BeautifulSoup(soup, 'html.parser')
@@ -407,7 +430,7 @@ if __name__ == "__main__":
         return {
             'hinta': extract_price(soup),
             'valmistusvuosi': extract_year_built(soup),
-            **extract_em_span_pairs(soup),
+            **extract_em_div_pairs(soup),
             'address': extract_address(soup),
             'hoitovastike': extract_hoitovastike(soup),
             'yhtiovastike_yhteensa' : extract_yhtiovastike_yhteensa(soup)
@@ -423,36 +446,30 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"Error processing idx={idx}: {e}")
     for idx, row in df_combined.iterrows():
-        data = extract_em_span_pairs(row['soup'])
-
+        data = extract_em_div_pairs(row['soup'])
+    '''
     #print(df_combined.columns)
-
-    df_combined = df_combined.drop(columns=poistettavat_sarakkeet, errors='ignore')
-    
+    df_combined = df_combined.drop(columns=poistettavat_sarakkeet, errors='ignore')    
     df_combined['huoneita'] = df_combined['Tyyppi'].str[0]
     df_combined['tontin_vuokra-aika'] = df_combined['Tontin vuokra-aika päättyy'].fillna(df_combined['Tontin vuokra-aika'])
     df_combined.drop(columns=['Tontin vuokra-aika','Tontin vuokra-aika päättyy'],inplace = True)
-
     #Otetaan osoitteesta vain katuosoite-osuus
     df_combined['katuosoite'] = df_combined['address'].str.split(',').str[0].str.strip()
     df_combined.drop(columns=['address'], inplace = True)
-
     #Muutetaan koko floatiksi
     df_combined['Asuintilojen pinta-ala'] = df_combined['Asuintilojen pinta-ala'].str.split(" ").str[0].str.replace(",",".")
     df_combined['Asuintilojen pinta-ala'] = df_combined['Asuintilojen pinta-ala'].astype(float)
     #Lasketaan neliöhinta ja -vastike
-
     try:
         df_combined['neliohinta'] = df_combined['hinta'] / df_combined['Asuintilojen pinta-ala']
     except KeyError:
         print(f"df_combined['hinta'] not found, KeyError")
-
     try:
-
-     df_combined['neliovastike'] = df_combined['hoitovastike'] / df_combined['Asuintilojen pinta-ala']
+        df_combined['neliovastike'] = df_combined['hoitovastike'] / df_combined['Asuintilojen pinta-ala']
     except:
         print("Error while calculating neliovastike")
     #print(df_combined)
+    '''
     df_combined.to_csv("all_listings.csv")
 
     print(datetime.now())
