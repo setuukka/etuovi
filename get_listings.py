@@ -78,7 +78,7 @@ print("Selainobjekti luotu!")
 
 def wait_random():
     wait_time = random.uniform(1, 5)
-    print(f"Waiting for {wait_time:.2f} seconds")
+    #print(f"Waiting for {wait_time:.2f} seconds")
     time.sleep(wait_time)
 
 def update_listing_file(url_list, filename='all_listings.csv'):
