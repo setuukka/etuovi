@@ -1,27 +1,17 @@
 import os
-from selenium import webdriver
-#from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-#from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options as firefox_options
 import time
 import pandas as pd
-import time
-import random
 from datetime import datetime
-from bs4 import BeautifulSoup, NavigableString
-import re
-import requests
-from pathlib import Path
 import numpy as np
 import streamlit as st
 import matplotlib.pyplot as plt
-
+import plotly.express as px
 import locale
+from geopy.geocoders import Nominatim
+import regex as re
+
+
+
 try:
     locale.setlocale(locale.LC_ALL, 'fi_FI.UTF-8')
 except:
@@ -33,17 +23,17 @@ def format_finnish(x):
         return x
     
 lit = True
-
-st.set_page_config(layout = "wide")
-df = pd.read_csv("all_listings.csv")
+if lit:
+    st.set_page_config(layout = "wide")
+df = pd.read_csv("all_listings_with_coordinates.csv")
 
 df = df.drop(columns = ['soup','Unnamed: 0','Taloyhtiön nimi','Isännöitsijän yhteystiedot'], errors = 'ignore')
 
+
 #df['huoneita'] == df['huoneita'].astype(int)
-df = df[['url','huoneita','hinta','neliohinta','hoitovastike','neliovastike','yhtiovastike_yhteensa','katuosoite','Tyyppi', 'Asuintilojen pinta-ala', 'Kerrokset', 'Tontin omistus','active']]
+df = df[['url','huoneita','hinta','neliohinta','hoitovastike','neliovastike','yhtiovastike_yhteensa','katuosoite','Tyyppi', 'Asuintilojen pinta-ala', 'Kerrokset', 'Tontin omistus','active','lat', 'lon']]
 df['huoneita'] = pd.to_numeric(df['huoneita'], errors='coerce').fillna(0).astype(int)
-
-
+df[['katu', 'numero', 'kirjain']] = df['katuosoite'].str.extract(r'^(.*?)[ ]*(\d+)[ ]*([A-Za-z]?)$')
 styled_df = df.style.background_gradient(subset=['hinta'], cmap='RdYlGn_r')
 
 aktiiviset = df[df['active'] == True]
@@ -57,10 +47,13 @@ nelio = df[df['huoneita'] == 4]
 muut_koot = df[df['huoneita'] > 4]
 koottomat = df[df['huoneita'] == 0]
 
-
+kadun_mukaan = df.groupby(['katuosoite','huoneita']).agg(
+    halvin =('hinta','min'),
+    kallein = ('hinta', 'max')
+)
 
 if lit:
-    tab1, tab2, tab3 = st.tabs(["Huoneiden määrän mukaan", "Väritetty", "Owl"])
+    tab1, tab2, tab3 = st.tabs(["Huoneiden määrän mukaan", "Väritetty", "Kartalla"])
 
     with tab1:
         st.write("Yksiöt")
@@ -90,3 +83,16 @@ if lit:
         }).background_gradient(subset=['hinta','neliohinta','hoitovastike','neliovastike'], cmap='RdYlGn_r')
 
         st.dataframe(styled_df)
+
+    with tab3:
+        fig = px.scatter(
+            df,
+            x = 'huoneita',
+            y = 'hinta',
+            size = 'hoitovastike'
+
+        )
+        #event = st.plotly_chart(fig, key = 'iris', on_select = 'rerun')
+        #event.selection
+        st.map(df[['lat', 'lon']])
+        st.write(kadun_mukaan)
