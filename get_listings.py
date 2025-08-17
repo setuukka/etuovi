@@ -84,7 +84,6 @@ def wait_random():
 def update_listing_file(url_list, filename='all_listings.csv'):
     file_path = Path(filename)
     if file_path.exists():
-
         df_new = pd.read_csv('latest_listings.csv')
         if debug_printing:
             print(f"read {len(df_new)} listings to compare to old listings")
@@ -100,6 +99,8 @@ def update_listing_file(url_list, filename='all_listings.csv'):
             print(f"{df_old['active'].value_counts()}")
         #päivitetään rivit, jotka löytyvät uudesta hausta
         df_old.loc[df_old['url'].isin(url_list), 'active'] = True
+        df_old.loc[df_old['active'], 'removal_date'] = pd.NA
+        df_old.loc[(df_old['removal_date'].isna()) & (df_old['active'] == False), 'removal_date'] = datetime.today().date()
         if debug_printing:
             print(f"Old df now has {len(df_old['active'])} listings, after setting still excisting to True")
         #Asetetaan df['removal_date'] arvoksi kuluva päivä, jos se on tyhjä ja df['active] = False
@@ -390,7 +391,7 @@ if __name__ == "__main__":
 
 
     temp_df = pd.read_csv('latest_listings.csv')
-    url_list = temp_df['url']
+    url_list = temp_df['url'].tolist()
     if debug_printing:
         print(f"Calling function update_listing_file with {len(url_list)} rows")
     df_combined = update_listing_file(url_list)
@@ -447,29 +448,7 @@ if __name__ == "__main__":
             print(f"Error processing idx={idx}: {e}")
     for idx, row in df_combined.iterrows():
         data = extract_em_div_pairs(row['soup'])
-    '''
-    #print(df_combined.columns)
-    df_combined = df_combined.drop(columns=poistettavat_sarakkeet, errors='ignore')    
-    df_combined['huoneita'] = df_combined['Tyyppi'].str[0]
-    df_combined['tontin_vuokra-aika'] = df_combined['Tontin vuokra-aika päättyy'].fillna(df_combined['Tontin vuokra-aika'])
-    df_combined.drop(columns=['Tontin vuokra-aika','Tontin vuokra-aika päättyy'],inplace = True)
-    #Otetaan osoitteesta vain katuosoite-osuus
-    df_combined['katuosoite'] = df_combined['address'].str.split(',').str[0].str.strip()
-    df_combined.drop(columns=['address'], inplace = True)
-    #Muutetaan koko floatiksi
-    df_combined['Asuintilojen pinta-ala'] = df_combined['Asuintilojen pinta-ala'].str.split(" ").str[0].str.replace(",",".")
-    df_combined['Asuintilojen pinta-ala'] = df_combined['Asuintilojen pinta-ala'].astype(float)
-    #Lasketaan neliöhinta ja -vastike
-    try:
-        df_combined['neliohinta'] = df_combined['hinta'] / df_combined['Asuintilojen pinta-ala']
-    except KeyError:
-        print(f"df_combined['hinta'] not found, KeyError")
-    try:
-        df_combined['neliovastike'] = df_combined['hoitovastike'] / df_combined['Asuintilojen pinta-ala']
-    except:
-        print("Error while calculating neliovastike")
-    #print(df_combined)
-    '''
+    df_combined['huoneita'] = df_combined['Huoneistoselitelmä'].str[0]
     df_combined.to_csv("all_listings.csv")
 
     print(datetime.now())
