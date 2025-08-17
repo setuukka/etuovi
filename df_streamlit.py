@@ -21,6 +21,8 @@ def format_finnish(x):
         return locale.format_string("%.2f", x, grouping=True)
     except:
         return x
+    
+
 #set lit to false to run and debug python code
 lit = True
 if lit:
@@ -54,7 +56,7 @@ poistettavat_sarakkeet = ['Unnamed: 0','Sijainti','Omistusmuoto',
 #print(df.head(5))
 #print(df['Huoneistoselitelmä'])
 df = df.drop(columns=poistettavat_sarakkeet, errors='ignore')    
-df['huoneita'] = df['Huoneistoselitelmä'].str[0]
+#df['huoneita'] = df['Huoneistoselitelmä'].str[0]
 
 df['tontin_vuokra-aika'] = df['Tontin vuokra-aika päättyy'].fillna(df['Tontin vuokra-aika'])
 df.drop(columns=['Tontin vuokra-aika','Tontin vuokra-aika päättyy'],inplace = True)
@@ -78,7 +80,7 @@ except:
 
 #df['huoneita'] == df['huoneita'].astype(int)
 #print(df.columns)
-df = df[['url','huoneita','hinta','neliohinta','hoitovastike','neliovastike','yhtiovastike_yhteensa','katuosoite','Tyyppi', 'Asuintilojen pinta-ala', 'Kerrokset', 'Tontin omistus','active']]
+df = df[['url','huoneita','hinta','neliohinta','hoitovastike','neliovastike','yhtiovastike_yhteensa','katuosoite', 'Asuintilojen pinta-ala', 'Kerrokset', 'Tontin omistus','active']]
 df['huoneita'] = pd.to_numeric(df['huoneita'], errors='coerce').fillna(0).astype(int)
 df[['katu', 'numero', 'kirjain']] = df['katuosoite'].str.extract(r'^(.*?)[ ]*(\d+)[ ]*([A-Za-z]?)$')
 styled_df = df.style.background_gradient(subset=['hinta'], cmap='RdYlGn_r')
@@ -87,6 +89,7 @@ aktiiviset = df[df['active'] == True]
 poistuneet = df[df['active'] == False]
 
 yksio = df[df['huoneita'] == 1]
+
 kaksio = df[df['huoneita'] == 2]
 kolmio = df[df['huoneita'] == 3]
 
