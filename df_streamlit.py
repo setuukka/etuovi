@@ -90,31 +90,25 @@ styled_df = df.style.background_gradient(subset=['hinta'], cmap='RdYlGn_r')
 
 
 #Filter that returns the correct dataframe based on checkboxes
-rooms = []
 status = []
-def dataframe_selector(df, rooms_list, active = True, passive = True):
-    filtered = df[df['huoneita'].isin(rooms_list)]
-    #filtered = filtered[filtered['active'] == active]
-    #filtered = filtered[filtered['passive'] == passive]
-
-    return filtered
-
-
-
-
+def dataframe_selector(df, active = True, passive = True):
+    allowed = []
+    if active:
+        allowed.append(True)
+    if passive:
+        allowed.append(False)
+    return df[df['active'].isin(allowed)]
 
 
 aktiiviset = df[df['active'] == True]
 poistuneet = df[df['active'] == False]
 
-yksio = df[df['huoneita'] == 1]
-
-kaksio = df[df['huoneita'] == 2]
-kolmio = df[df['huoneita'] == 3]
-
-nelio = df[df['huoneita'] == 4]
-muut_koot = df[df['huoneita'] > 4]
-koottomat = df[df['huoneita'] == 0]
+#yksio = df[df['huoneita'] == 1]
+#kaksio = df[df['huoneita'] == 2]
+##kolmio = df[df['huoneita'] == 3]
+#nelio = df[df['huoneita'] == 4]
+#muut_koot = df[df['huoneita'] > 4]
+#koottomat = df[df['huoneita'] == 0]
 
 kadun_mukaan = df.groupby(['katuosoite','huoneita']).agg(
     halvin =('hinta','min'),
@@ -144,27 +138,37 @@ if lit:
             passive_checkbox = st.checkbox(label = "Passive listings", value = True)
 
 
+        df = dataframe_selector(df, active=active_checkbox, passive=passive_checkbox)
+
+
         if yksio_checkbox:
             st.write("Yksiöt")
+            yksio = df[df['huoneita'] == 1]
+
             st.write(yksio)
             st.write(yksio.describe())
         if kaksio_checkbox:
             st.write("Kaksiot")
+            kaksio = df[df['huoneita'] == 2]
             st.write(kaksio)
             st.write(kaksio.describe())
         if kolmio_checkbox:
             st.write("Kolmiot")
-            st.write(kolmio)
+            kolmio = df[df['huoneita'] == 3]
+            st.write(kolmio)            
             st.write(kolmio.describe())
         if nelio_checkbox:
             st.write("Neliot")
+            nelio = df[df['huoneita'] == 4]
             st.write(nelio)
             st.write(nelio.describe())
         if muut_checkbox:
             st.write("Vielä suuremmat")
+            muut_koot = df[df['huoneita'] > 4]
             st.write(muut_koot)
             st.write(muut_koot.describe())
         st.write("Koottomat")
+        koottomat = df[df['huoneita'] == 0]
         st.write(koottomat)
 
     with tab2:
