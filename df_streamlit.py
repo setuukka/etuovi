@@ -7,7 +7,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.express as px
 import locale
-from geopy.geocoders import Nominatim
+#from geopy.geocoders import Nominatim
 import regex as re
 
 
