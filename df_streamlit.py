@@ -124,40 +124,8 @@ kadun_mukaan = df.groupby(['katuosoite','huoneita']).agg(
 if lit:
     tab1, tab2, tab3, tab4 = st.tabs(["Huoneiden määrän mukaan", "Väritetty", "Kartalla", "testi"])
 
+
     with tab1:
-        col1, col2, col3, col4, col5, spacer = st.columns([1,1,1,1,1,30])
-        col_act, col_pas, spacer = st.columns([1,1,15])
-        with col1:
-            yksio_checkbox = st.checkbox(label = "1h", value=True)
-        with col2:
-            kaksio_checkbox = st.checkbox(label = "2h", value=True)
-        with col3:
-            kolmio_checkbox = st.checkbox(label = "3h", value=True)
-        with col4:
-            nelio_checkbox = st.checkbox(label = "4h", value=True)
-        with col5:
-            muut_checkbox = st.checkbox(label = "4+h", value=True)
-        with col_act:
-            active_checkbox = st.checkbox(label = "Active listings", value = True)
-        with col_pas:
-            passive_checkbox = st.checkbox(label = "Passive listings", value = True)
-
-        if yksio_checkbox:
-            rooms.append(1)
-        if kaksio_checkbox:
-            rooms.append(2)
-        if kolmio_checkbox:
-            rooms.append(3)
-        if nelio_checkbox:
-            rooms.append(4)
-        if muut_checkbox:
-            rooms.append(5)
-
-        result_df = dataframe_selector(df, rooms)
-        #st.write(result_df.to_string())
-        st.dataframe(result_df, use_container_width=True, height=35*len(df))
-'''
-    with tab4:
         col1, col2, col3, col4, col5, spacer = st.columns([1,1,1,1,1,30])
         col_act, col_pas, spacer = st.columns([1,1,15])
         with col1:
@@ -221,4 +189,3 @@ if lit:
         #event.selection
         #st.map(df[['lat', 'lon']])
         st.write(kadun_mukaan)
-        '''
