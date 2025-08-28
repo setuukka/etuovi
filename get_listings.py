@@ -424,7 +424,7 @@ if __name__ == "__main__":
     #Yhdisteään haetut tiedot takaisin
     #print(df_combined.head()) #DEBUG
 
-    df_combined.to_csv("df_after_soup_debug.csv")    #Haetaan hinta ja muut parametrit
+    df_combined.to_csv("df_after_soup_debug.csv", index = False)    #Haetaan hinta ja muut parametrit
 
 
     def process_listing(soup):
@@ -449,6 +449,6 @@ if __name__ == "__main__":
     for idx, row in df_combined.iterrows():
         data = extract_em_div_pairs(row['soup'])
     df_combined['huoneita'] = df_combined['Huoneistoselitelmä'].str[0]
-    df_combined.to_csv("all_listings.csv")
+    df_combined.to_csv("all_listings.csv", index = False)
 
     print(datetime.now())

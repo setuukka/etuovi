@@ -85,6 +85,8 @@ except:
 df = df[['url','huoneita','hinta','neliohinta','hoitovastike','neliovastike','yhtiovastike_yhteensa','katuosoite', 'Asuintilojen pinta-ala', 'Kerrokset', 'Tontin omistus','active']]
 df['huoneita'] = pd.to_numeric(df['huoneita'], errors='coerce').fillna(0).astype(int)
 df[['katu', 'numero', 'kirjain']] = df['katuosoite'].str.extract(r'^(.*?)[ ]*(\d+)[ ]*([A-Za-z]?)$')
+df['katu'] = df['katuosoite'].apply(lambda x : str(x).split()[0])
+df['numero'] = pd.to_numeric(df['numero'], errors='coerce').fillna(0).astype(int)
 styled_df = df.style.background_gradient(subset=['hinta'], cmap='RdYlGn_r')
 
 
@@ -110,41 +112,29 @@ poistuneet = df[df['active'] == False]
 #muut_koot = df[df['huoneita'] > 4]
 #koottomat = df[df['huoneita'] == 0]
 
-kadun_mukaan = df.groupby(['katuosoite','huoneita']).agg(
+kadun_mukaan = df.groupby(['katu']).agg(
     halvin =('hinta','min'),
     kallein = ('hinta', 'max')
 )
 
 if lit:
-    tab1, tab2, tab3, tab4 = st.tabs(["Huoneiden määrän mukaan", "Väritetty", "Kartalla", "testi"])
+    yksio_checkbox = st.sidebar.checkbox(label = "1h", value=True)
+    kaksio_checkbox = st.sidebar.checkbox(label = "2h", value=True)
+    kolmio_checkbox = st.sidebar.checkbox(label = "3h", value=True)
+    nelio_checkbox = st.sidebar.checkbox(label = "4h", value=True)
+    muut_checkbox = st.sidebar.checkbox(label = "4+h", value=True)
+    active_checkbox = st.sidebar.checkbox(label = "Active listings", value = True)
+    passive_checkbox = st.sidebar.checkbox(label = "Passive listings", value = True)
 
+    df = dataframe_selector(df, active=active_checkbox, passive=passive_checkbox)
+
+
+    tab1, tab2, tab3, tab4 = st.tabs(["Huoneiden määrän mukaan", "Väritetty", "Boxplot", "Kadun mukaan"])
 
     with tab1:
-        col1, col2, col3, col4, col5, spacer = st.columns([1,1,1,1,1,30])
-        col_act, col_pas, spacer = st.columns([1,1,15])
-        with col1:
-            yksio_checkbox = st.checkbox(label = "1h", value=True)
-        with col2:
-            kaksio_checkbox = st.checkbox(label = "2h", value=True)
-        with col3:
-            kolmio_checkbox = st.checkbox(label = "3h", value=True)
-        with col4:
-            nelio_checkbox = st.checkbox(label = "4h", value=True)
-        with col5:
-            muut_checkbox = st.checkbox(label = "4+h", value=True)
-        with col_act:
-            active_checkbox = st.checkbox(label = "Active listings", value = True)
-        with col_pas:
-            passive_checkbox = st.checkbox(label = "Passive listings", value = True)
-
-
-        df = dataframe_selector(df, active=active_checkbox, passive=passive_checkbox)
-
-
         if yksio_checkbox:
             st.write("Yksiöt")
             yksio = df[df['huoneita'] == 1]
-
             st.write(yksio)
             st.write(yksio.describe())
         if kaksio_checkbox:
@@ -182,14 +172,19 @@ if lit:
         st.dataframe(styled_df)
 
     with tab3:
-        fig = px.scatter(
-            df,
-            x = 'huoneita',
-            y = 'hinta',
-            size = 'hoitovastike'
+        fig = px.box(
+            df, x = 'huoneita', y = 'hinta', points = 'all')
+        st.write(fig)
 
-        )
-        #event = st.plotly_chart(fig, key = 'iris', on_select = 'rerun')
-        #event.selection
-        #st.map(df[['lat', 'lon']])
-        st.write(kadun_mukaan)
+        df_by_street = df.sort_values(by = ['katu','numero'])
+        df_by_street = df_by_street[['katu','numero','huoneita','hinta','neliohinta','hoitovastike','Asuintilojen pinta-ala']]
+        st.dataframe(df_by_street)
+
+
+    with tab4:
+        for street in df['katu'].unique():
+            st.write(f"### {street}")
+            st.dataframe(df[df['katu'] == street], use_container_width=True)
+
+    
+
