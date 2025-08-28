@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import locale
 #from geopy.geocoders import Nominatim
-import regex as re
+#import regex as re
 
 
 
