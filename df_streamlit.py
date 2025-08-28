@@ -154,8 +154,8 @@ if lit:
             rooms.append(5)
 
         result_df = dataframe_selector(df, rooms)
-        st.write(result_df.to_string())
-
+        #st.write(result_df.to_string())
+        st.dataframe(result_df, use_container_width=True, height=35*len(df))
 '''
     with tab4:
         col1, col2, col3, col4, col5, spacer = st.columns([1,1,1,1,1,30])
