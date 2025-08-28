@@ -78,12 +78,31 @@ except:
 #print(df_combined)
 
 
+
+
 #df['huoneita'] == df['huoneita'].astype(int)
 #print(df.columns)
 df = df[['url','huoneita','hinta','neliohinta','hoitovastike','neliovastike','yhtiovastike_yhteensa','katuosoite', 'Asuintilojen pinta-ala', 'Kerrokset', 'Tontin omistus','active']]
 df['huoneita'] = pd.to_numeric(df['huoneita'], errors='coerce').fillna(0).astype(int)
 df[['katu', 'numero', 'kirjain']] = df['katuosoite'].str.extract(r'^(.*?)[ ]*(\d+)[ ]*([A-Za-z]?)$')
 styled_df = df.style.background_gradient(subset=['hinta'], cmap='RdYlGn_r')
+
+
+
+#Filter that returns the correct dataframe based on checkboxes
+rooms = []
+status = []
+def dataframe_selector(df, rooms_list, active = True, passive = True):
+    filtered = df[df['huoneita'].isin(rooms_list)]
+    #filtered = filtered[filtered['active'] == active]
+    #filtered = filtered[filtered['passive'] == passive]
+
+    return filtered
+
+
+
+
+
 
 aktiiviset = df[df['active'] == True]
 poistuneet = df[df['active'] == False]
@@ -103,24 +122,81 @@ kadun_mukaan = df.groupby(['katuosoite','huoneita']).agg(
 )
 
 if lit:
-    tab1, tab2, tab3 = st.tabs(["Huoneiden määrän mukaan", "Väritetty", "Kartalla"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Huoneiden määrän mukaan", "Väritetty", "Kartalla", "testi"])
 
     with tab1:
-        st.write("Yksiöt")
-        st.write(yksio)
-        st.write(yksio.describe())
-        st.write("Kaksiot")
-        st.write(kaksio)
-        st.write(kaksio.describe())
-        st.write("Kolmiot")
-        st.write(kolmio)
-        st.write(kolmio.describe())
-        st.write("Neliot")
-        st.write(nelio)
-        st.write(nelio.describe())
-        st.write("Vielä suuremmat")
-        st.write(muut_koot)
-        st.write(muut_koot.describe())
+        col1, col2, col3, col4, col5, spacer = st.columns([1,1,1,1,1,30])
+        col_act, col_pas, spacer = st.columns([1,1,15])
+        with col1:
+            yksio_checkbox = st.checkbox(label = "1h", value=True)
+        with col2:
+            kaksio_checkbox = st.checkbox(label = "2h", value=True)
+        with col3:
+            kolmio_checkbox = st.checkbox(label = "3h", value=True)
+        with col4:
+            nelio_checkbox = st.checkbox(label = "4h", value=True)
+        with col5:
+            muut_checkbox = st.checkbox(label = "4+h", value=True)
+        with col_act:
+            active_checkbox = st.checkbox(label = "Active listings", value = True)
+        with col_pas:
+            passive_checkbox = st.checkbox(label = "Passive listings", value = True)
+
+        if yksio_checkbox:
+            rooms.append(1)
+        if kaksio_checkbox:
+            rooms.append(2)
+        if kolmio_checkbox:
+            rooms.append(3)
+        if nelio_checkbox:
+            rooms.append(4)
+        if muut_checkbox:
+            rooms.append(5)
+
+        result_df = dataframe_selector(df, rooms)
+        st.write(result_df)
+
+
+'''
+    with tab4:
+        col1, col2, col3, col4, col5, spacer = st.columns([1,1,1,1,1,30])
+        col_act, col_pas, spacer = st.columns([1,1,15])
+        with col1:
+            yksio_checkbox = st.checkbox(label = "1h", value=True)
+        with col2:
+            kaksio_checkbox = st.checkbox(label = "2h", value=True)
+        with col3:
+            kolmio_checkbox = st.checkbox(label = "3h", value=True)
+        with col4:
+            nelio_checkbox = st.checkbox(label = "4h", value=True)
+        with col5:
+            muut_checkbox = st.checkbox(label = "4+h", value=True)
+        with col_act:
+            active_checkbox = st.checkbox(label = "Active listings", value = True)
+        with col_pas:
+            passive_checkbox = st.checkbox(label = "Passive listings", value = True)
+
+
+        if yksio_checkbox:
+            st.write("Yksiöt")
+            st.write(yksio)
+            st.write(yksio.describe())
+        if kaksio_checkbox:
+            st.write("Kaksiot")
+            st.write(kaksio)
+            st.write(kaksio.describe())
+        if kolmio_checkbox:
+            st.write("Kolmiot")
+            st.write(kolmio)
+            st.write(kolmio.describe())
+        if nelio_checkbox:
+            st.write("Neliot")
+            st.write(nelio)
+            st.write(nelio.describe())
+        if muut_checkbox:
+            st.write("Vielä suuremmat")
+            st.write(muut_koot)
+            st.write(muut_koot.describe())
         st.write("Koottomat")
         st.write(koottomat)
 
@@ -146,3 +222,4 @@ if lit:
         #event.selection
         #st.map(df[['lat', 'lon']])
         st.write(kadun_mukaan)
+        '''
