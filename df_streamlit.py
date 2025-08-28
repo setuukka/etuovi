@@ -154,8 +154,7 @@ if lit:
             rooms.append(5)
 
         result_df = dataframe_selector(df, rooms)
-        st.write(result_df)
-
+        st.write(result_df.to_string())
 
 '''
     with tab4:
