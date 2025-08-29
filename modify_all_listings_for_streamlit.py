@@ -119,7 +119,7 @@ df = pd.concat([df, condition_dummies], axis = 1)
 
 # %%
 df.to_csv("df_for_streamlit.csv", index = False)
-
+print(f"csv for streamlit saved with {len(df)} rows on {datetime.now()}")
 # %%
 
 
