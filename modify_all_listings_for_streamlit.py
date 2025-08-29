@@ -98,6 +98,10 @@ df = df[['url', 'year_built', 'rooms', 'apartment_size', 'price', 'price_sqm', '
 conditions_dict = {'Hyvä' : 'good', 'Tyydyttävä' : 'adequate', 'Huono' : 'terrible', 'Ei luokiteltu' : 'unclassified'}
 df['condition'] = df['condition'].replace(conditions_dict)
 
+plot_ownership_dict = {'Vuokra' : 'rental','Oma' : 'own'}
+df['plot_ownership'] = df['plot_ownership'].replace(plot_ownership_dict)
+
+
 # %%
 #Creating dummy variables on condition. Base line is "hyvä", which means "Good"
 df['condition'] = pd.Categorical(
