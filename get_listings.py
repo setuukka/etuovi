@@ -49,7 +49,7 @@ try:
 except FileNotFoundError:
     print("We are not in Linux")
 
-debug_printing = False
+debug_printing = True
 def current_date():
     return datetime.now().strftime('%d%m%Y')
 
@@ -64,16 +64,18 @@ else:
 firefox_options = firefox_options()
 firefox_options.add_argument("-headless")
 firefox_options.headless = True
-print("Headless-tile:", firefox_options.headless)
+if debug_printing:
+    print("Headless-tile:", firefox_options.headless)
 firefox_options.set_preference("layers.acceleration.disabled", True)  # Poistaa GPU-kiihdytyksen
 firefox_options.set_preference("media.hardware-video-decoding.enabled", False)
 
 if not os.path.exists(geckodriver_path):
     raise FileExistsError(f"Geckodriver not found at {geckodriver_path}")
-
-print("Luodaan selainobjekti..")
+if debug_printing:
+    print("Luodaan selainobjekti..")
 driver = webdriver.Firefox(service = Service(geckodriver_path),options = firefox_options)
-print("Selainobjekti luotu!")
+if debug_printing:
+    print("Selainobjekti luotu!")
 
 
 def wait_random():
@@ -81,12 +83,16 @@ def wait_random():
     #print(f"Waiting for {wait_time:.2f} seconds")
     time.sleep(wait_time)
 
-def update_listing_file(url_list, filename='all_listings.csv'):
+def update_listing_file(filename='all_listings.csv'):
+
     file_path = Path(filename)
     if file_path.exists():
         df_new = pd.read_csv('latest_listings.csv')
+        url_list = df_new['url'].tolist()
         if debug_printing:
-            print(f"read {len(df_new)} listings to compare to old listings")
+            print(f"URL LIST THAT IS USED TO COMPARE LISTINGS: {url_list}")
+        if debug_printing:
+            print(f"New listings csv has {len(df_new)} listings to compare to old listings")
         #luetaan viimeisin hakutulos dataframeen
         df_old = pd.read_csv(file_path)
         if debug_printing:
@@ -94,19 +100,19 @@ def update_listing_file(url_list, filename='all_listings.csv'):
         #asetetaan kaikki oletuksena ei-aktiivisiksi
         if debug_printing:
             print(f"Old df has {len(df_old['active'])} listings. Setting all to False")
+            print(f"{df_old['active'].value_counts()} values before changing")
         df_old['active'] = False
         if debug_printing:
-            print(f"{df_old['active'].value_counts()}")
+            print(f"{df_old['active'].value_counts()} after changing")
         #päivitetään rivit, jotka löytyvät uudesta hausta
         df_old.loc[df_old['url'].isin(url_list), 'active'] = True
         df_old.loc[df_old['active'], 'removal_date'] = pd.NA
-        df_old.loc[(df_old['removal_date'].isna()) & (df_old['active'] == False), 'removal_date'] = datetime.today().date()
         if debug_printing:
             print(f"Old df now has {len(df_old['active'])} listings, after setting still excisting to True")
         #Asetetaan df['removal_date'] arvoksi kuluva päivä, jos se on tyhjä ja df['active] = False
         df_old.loc[(df_old['removal_date'].isna()) & (df_old['active'] == False), 'removal_date'] = datetime.today().date()
         if debug_printing:
-            print(f"{len(df_old['active'] == False)} items set to False and deactive")
+            print((df_old['active'] == False).sum(), "items set to False and deactive")
         #yhdistetään uudet rivit, jotka eivät ole vielä mukana
         df_combined = pd.concat([
             df_old,
@@ -390,14 +396,15 @@ if __name__ == "__main__":
     get_urls(base_url, page) #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
 
 
-    temp_df = pd.read_csv('latest_listings.csv')
-    url_list = temp_df['url'].tolist()
-    if debug_printing:
-        print(f"Calling function update_listing_file with {len(url_list)} rows")
-    df_combined = update_listing_file(url_list)
+    #temp_df = pd.read_csv('latest_listings.csv')
+    #url_list = temp_df['url'].tolist()
+
+    df_combined = update_listing_file()
     if debug_printing:
         print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
-    
+    if debug_printing:
+        pause = input("THIS IS A PAUSE. PRESS ANY KEY TO CONTINUE")
+
     #TAllennetaan väliaikaisesti testiä varten df_combined csv:ksi, jotta ei tarvitse tehdä etuovesta hakuja testiä varten
     #df_combined.to_csv("csv_with_soup_temp.csv")
     #df_combined = pd.read_csv('csv_with_soup_temp.csv')
