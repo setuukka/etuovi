@@ -49,7 +49,7 @@ try:
 except FileNotFoundError:
     print("We are not in Linux")
 
-debug_printing = True
+debug_printing = False
 def current_date():
     return datetime.now().strftime('%d%m%Y')
 
