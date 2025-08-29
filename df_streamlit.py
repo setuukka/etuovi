@@ -72,31 +72,31 @@ if lit:
 
     with tab1:
         if yksio_checkbox:
-            st.write("Yksiöt")
+            st.write("One room")
             yksio = df[df['rooms'] == 1]
             st.write(yksio)
             st.write(yksio.describe())
         if kaksio_checkbox:
-            st.write("Kaksiot")
+            st.write("Two rooms")
             kaksio = df[df['rooms'] == 2]
             st.write(kaksio)
             st.write(kaksio.describe())
         if kolmio_checkbox:
-            st.write("Kolmiot")
+            st.write("Three rooms")
             kolmio = df[df['rooms'] == 3]
             st.write(kolmio)            
             st.write(kolmio.describe())
         if nelio_checkbox:
-            st.write("Neliot")
+            st.write("Four rooms")
             nelio = df[df['rooms'] == 4]
             st.write(nelio)
             st.write(nelio.describe())
         if muut_checkbox:
-            st.write("Vielä suuremmat")
+            st.write("Five and more rooms")
             muut_koot = df[df['rooms'] > 4]
             st.write(muut_koot)
             st.write(muut_koot.describe())
-        st.write("Koottomat")
+        st.write("Unkown rooms")
         koottomat = df[df['rooms'] == 0]
         st.write(koottomat)
 
