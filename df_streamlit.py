@@ -115,8 +115,8 @@ if lit:
             df, x = 'rooms', y = 'price', points = 'all')
         st.write(fig)
 
-        df_by_street = df.sort_values(by = ['street','staircase'])
-        df_by_street = df_by_street[['street','staircase','rooms','price','price_sqm','maintenance_fee','apartment_size']]
+        df_by_street = df.sort_values(by = ['street','street_number','staircase'])
+        df_by_street = df_by_street[['street','street_number','staircase','rooms','price','price_sqm','maintenance_fee','apartment_size']]
         st.dataframe(df_by_street)
 
 
