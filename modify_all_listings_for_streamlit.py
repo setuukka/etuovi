@@ -57,7 +57,7 @@ except:
 # %%
 #Create variable for number of rooms
 df['rooms'] = pd.to_numeric(df['huoneita'], errors='coerce').fillna(0).astype(int)
-df.drop(columns = ['rooms'], inplace = True)
+df.drop(columns = ['huoneita'], inplace = True)
 
 # %%
 #Create streetname, streetnumber and staircase variables
