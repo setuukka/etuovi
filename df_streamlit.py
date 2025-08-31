@@ -25,7 +25,8 @@ lit = True
 if lit:
     st.set_page_config(layout = "wide")
 df = pd.read_csv("df_for_streamlit.csv")
-df = df.drop(columns = ['is_sauna', 'is_balcony','is_elevator', 'cond_adequate', 'cond_terrible', 'cond_unclassified'])
+df = df.drop(columns = ['is_sauna', 'is_balcony','is_elevator'])
+#df = df.drop(columns = ['cond_adequate', 'cond_terrible', 'cond_unclassified'])
 
 styled_df = df.style.background_gradient(subset=['hinta'], cmap='RdYlGn_r')
 

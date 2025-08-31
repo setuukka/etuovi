@@ -103,7 +103,7 @@ plot_ownership_dict = {'Vuokra' : 'rental','Oma' : 'own'}
 df['plot_ownership'] = df['plot_ownership'].replace(plot_ownership_dict)
 
 
-# %%
+'''# %%
 #Creating dummy variables on condition. Base line is "hyvä", which means "Good"
 df['condition'] = pd.Categorical(
     df['condition'],
@@ -116,9 +116,9 @@ condition_dummies = pd.get_dummies(
     dtype = int,
     prefix = 'cond',
     prefix_sep = '_')
-#print(condition_dummies)
+print(condition_dummies)
 #df = df.drop(columns = ['condition'])
-df = pd.concat([df, condition_dummies], axis = 1)
+df = pd.concat([df, condition_dummies], axis = 1)'''
 # %%
 df.to_csv("df_for_streamlit.csv", index = False)
 print(f"csv for streamlit saved with {len(df)} rows on {datetime.now()}")
