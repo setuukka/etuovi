@@ -94,10 +94,12 @@ df = df[['url', 'year_built', 'rooms', 'apartment_size', 'price', 'price_sqm', '
        'housing_company', 'plot_ownership', 'fetch_date','removal_date', 'sell_time_days', 'decade_built', 'is_sauna', 'is_balcony', 'is_elevator']]
 
 # %%
+
 #Renaming values to english
 conditions_dict = {'Hyvä' : 'good', 'Tyydyttävä' : 'adequate', 'Huono' : 'terrible', 'Ei luokiteltu' : 'unclassified'}
 df['condition'] = df['condition'].replace(conditions_dict)
-
+print(df['condition'])
+print(df.columns.tolist())
 plot_ownership_dict = {'Vuokra' : 'rental','Oma' : 'own'}
 df['plot_ownership'] = df['plot_ownership'].replace(plot_ownership_dict)
 
@@ -115,8 +117,9 @@ condition_dummies = pd.get_dummies(
     dtype = int,
     prefix = 'cond',
     prefix_sep = '_')
+#print(condition_dummies)
+#df = df.drop(columns = ['condition'])
 df = pd.concat([df, condition_dummies], axis = 1)
-
 # %%
 df.to_csv("df_for_streamlit.csv", index = False)
 print(f"csv for streamlit saved with {len(df)} rows on {datetime.now()}")
