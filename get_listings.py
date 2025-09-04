@@ -90,16 +90,14 @@ def update_listing_file(filename='all_listings.csv'):
         df_new = pd.read_csv('latest_listings.csv')
         url_list = df_new['url'].tolist()
         if debug_printing:
-            print(f"URL LIST THAT IS USED TO COMPARE LISTINGS: {url_list}")
-        if debug_printing:
-            print(f"New listings csv has {len(df_new)} listings to compare to old listings")
+            print(f"URL-list from today's scraping df: {url_list}")
         #luetaan viimeisin hakutulos dataframeen
         df_old = pd.read_csv(file_path)
         if debug_printing:
             print(f"Old dataframe contains {len(df_old)} listings")
         #asetetaan kaikki oletuksena ei-aktiivisiksi
         if debug_printing:
-            print(f"Old df has {len(df_old['active'])} listings. Setting all to False")
+            #print(f"Old df has {len(df_old[df_old['active'] == True])} listings. Setting all to False")
             print(f"{df_old['active'].value_counts()} values before changing")
         df_old['active'] = False
         if debug_printing:
@@ -247,8 +245,8 @@ def get_soup(df):
     return df
 
 def extract_price(soup):
-    if debug_printing:
-        print(f"We are in extract_price function")
+    #if debug_printing:
+        #print(f"We are in extract_price function")
     try:
         soup = BeautifulSoup(soup, 'html.parser')
     except TypeError:
@@ -366,8 +364,8 @@ def extract_yhtiovastike_yhteensa(soup):
     return yhtiovastike_yhteensa
 
 def extract_year_built(soup):
-    if debug_printing:
-        print(f"We are in extract_year_built function")
+    #if debug_printing:
+        #print(f"We are in extract_year_built function")
     try:
         soup = BeautifulSoup(soup, 'html.parser')
     except TypeError:
@@ -395,9 +393,11 @@ if __name__ == "__main__":
     url_list = []
     get_urls(base_url, page) #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
 
-
-    #temp_df = pd.read_csv('latest_listings.csv')
-    #url_list = temp_df['url'].tolist()
+    if debug_printing:
+        print(f"url_list includes {len(url_list)} items.")
+        for item in url_list:
+            print(item)
+        tauko = input("Press any key to continue")
 
     df_combined = update_listing_file()
     if debug_printing:
