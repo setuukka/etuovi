@@ -23,6 +23,12 @@ from pathlib import Path
 import numpy as np
 import os
 
+BASE_DIR = Path(__file__).parent.resolve()
+all_listings_path = BASE_DIR / "all_listings.csv"
+latest_listings_path = BASE_DIR / "latest_listings.csv"
+
+
+
 poistettavat_sarakkeet = ['Unnamed: 0','Sijainti','Omistusmuoto',
        'Huoneistoselitelmä', 'Huoneita', 'Lisätietoja pinta-alasta', 'Rakennusvuosi', 'Käyttöönottovuosi', 'Vapautuminen', 'Hinta',
        'Vastike', 'Muut maksut', 'Sauna', 'Hissi', 'Asunnon kunto',
@@ -87,7 +93,9 @@ def update_listing_file(filename='all_listings.csv'):
 
     file_path = Path(filename)
     if file_path.exists():
-        df_new = pd.read_csv('latest_listings.csv')
+        #df_new = pd.read_csv('latest_listings.csv')
+        df_new = pd.read_csv(latest_listings_path)
+        print("Loaded latest listings from: ", latest_listings_path)
         url_list = df_new['url'].tolist()
         print(f"todays list has {len(url_list)} listings")
         if debug_printing:
@@ -459,7 +467,8 @@ if __name__ == "__main__":
         data = extract_em_div_pairs(row['soup'])
     df_combined['huoneita'] = df_combined['Huoneistoselitelmä'].str[0]
     #print(f"csv for streamlit saved with {len(df)} rows on {datetime.now()}")
-    print(f"Writing combined csv as 'all_listings.csv' with {df_combined.shape[0]} rows and {df_combined.shape[1]} columns")
-    df_combined.to_csv("all_listings.csv", index = False)
-
+    #print(f"Writing combined csv as 'all_listings.csv' with {df_combined.shape[0]} rows and {df_combined.shape[1]} columns")
+    #df_combined.to_csv("all_listings.csv", index = False)
+    df_combined.to_csv(all_listings_path, index = False)
+    print("Saved combined listings to: ", all_listings_path)
     print(f"Script completed at {datetime.now()}")
