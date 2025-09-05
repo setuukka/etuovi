@@ -2,9 +2,15 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent.resolve()
+all_listings_path = BASE_DIR / "all_listings.csv"
+df_for_streamlit_path = BASE_DIR / "df_for_streamlit.csv"
 
 # %%
-df = pd.read_csv('all_listings.csv')
+#df = pd.read_csv('all_listings.csv')
+df = pd.read_csv(all_listings_path)
 
 # %%
 #Drop unnecessary columns
@@ -120,7 +126,8 @@ print(condition_dummies)
 #df = df.drop(columns = ['condition'])
 df = pd.concat([df, condition_dummies], axis = 1)'''
 # %%
-df.to_csv("df_for_streamlit.csv", index = False)
+df.to_csv(df_for_streamlit_path, index = False)
+#df.to_csv("df_for_streamlit.csv", index = False)
 print(f"csv for streamlit saved with {len(df)} rows on {datetime.now()}")
 # %%
 
