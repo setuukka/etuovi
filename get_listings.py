@@ -89,12 +89,12 @@ def update_listing_file(filename='all_listings.csv'):
     if file_path.exists():
         df_new = pd.read_csv('latest_listings.csv')
         url_list = df_new['url'].tolist()
+        print(f"todays list has {len(url_list)} listings")
         if debug_printing:
             print(f"URL-list from today's scraping df: {url_list}")
         #luetaan viimeisin hakutulos dataframeen
         df_old = pd.read_csv(file_path)
-        if debug_printing:
-            print(f"Old dataframe contains {len(df_old)} listings")
+        print(f"Old dataframe contains {len(df_old)} listings")
         #asetetaan kaikki oletuksena ei-aktiivisiksi
         if debug_printing:
             #print(f"Old df has {len(df_old[df_old['active'] == True])} listings. Setting all to False")
@@ -131,6 +131,7 @@ def update_listing_file(filename='all_listings.csv'):
     return df_combined
 
 def get_urls(base_url, page):
+    print("Starting 'get_urls' function")
     try:
         spotlight = driver.find_element(By.ID, "spotlight-container-id")
         driver.execute_script("arguments[0].remove();", spotlight)
@@ -207,7 +208,7 @@ def get_urls(base_url, page):
     df = df.drop_duplicates(subset = ['url'], keep = 'last')
 
 
-    print(f"Writing {len(url_list)} rows to csv")
+    print(f"Writing {len(url_list)} rows to 'latest_listings.csv'")
     df.to_csv("latest_listings.csv", index=False)
     print("Save complete!")
 
@@ -216,6 +217,7 @@ def get_urls(base_url, page):
     print(f"Execution time: {execution_time_etuovi:.2f} seconds")
 
 def get_soup(df):
+    print("Startins 'get_soup' function")
     soups = []
 
 
@@ -456,6 +458,8 @@ if __name__ == "__main__":
     for idx, row in df_combined.iterrows():
         data = extract_em_div_pairs(row['soup'])
     df_combined['huoneita'] = df_combined['Huoneistoselitelmä'].str[0]
+    #print(f"csv for streamlit saved with {len(df)} rows on {datetime.now()}")
+    print(f"Writing combined csv as 'all_listings.csv' with {df_combined.shape[0]} rows and {df_combined.shape[1]} columns")
     df_combined.to_csv("all_listings.csv", index = False)
 
-    print(datetime.now())
+    print(f"Script completed at {datetime.now()}")
