@@ -56,6 +56,9 @@ except FileNotFoundError:
     print("We are not in Linux")
 
 debug_printing = False
+pauses = True
+
+
 def current_date():
     return datetime.now().strftime('%d%m%Y')
 
@@ -89,10 +92,11 @@ def wait_random():
     #print(f"Waiting for {wait_time:.2f} seconds")
     time.sleep(wait_time)
 
-def update_listing_file(filename='all_listings.csv'):
+def update_listing_file():
 
-    file_path = Path(filename)
-    if file_path.exists():
+    print("Looking for all_listings.csv at:", all_listings_path)
+    print("Exists?", all_listings_path.exists())
+    if all_listings_path.exists():
         #df_new = pd.read_csv('latest_listings.csv')
         df_new = pd.read_csv(latest_listings_path)
         print("Loaded latest listings from: ", latest_listings_path)
@@ -101,7 +105,7 @@ def update_listing_file(filename='all_listings.csv'):
         if debug_printing:
             print(f"URL-list from today's scraping df: {url_list}")
         #luetaan viimeisin hakutulos dataframeen
-        df_old = pd.read_csv(file_path)
+        df_old = pd.read_csv(all_listings_path)
         print(f"Old dataframe contains {len(df_old)} listings")
         #asetetaan kaikki oletuksena ei-aktiivisiksi
         if debug_printing:
@@ -403,16 +407,11 @@ if __name__ == "__main__":
     url_list = []
     get_urls(base_url, page) #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
 
-    if debug_printing:
-        print(f"url_list includes {len(url_list)} items.")
-        for item in url_list:
-            print(item)
-        tauko = input("Press any key to continue")
 
     df_combined = update_listing_file()
     if debug_printing:
         print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
-    if debug_printing:
+    if pauses:
         pause = input("THIS IS A PAUSE. PRESS ANY KEY TO CONTINUE")
 
     #TAllennetaan väliaikaisesti testiä varten df_combined csv:ksi, jotta ei tarvitse tehdä etuovesta hakuja testiä varten
@@ -424,11 +423,11 @@ if __name__ == "__main__":
         df_no_values = df_combined[df_combined['hinta'].isna()].copy()
         if debug_printing:
             print(f"Created a dataframe of missing values with {len(df_no_values)} rows")
-
-            jatka = input("Paina 'y' jatkaaksesi: ")
-            if jatka.lower() != "y":
-                print("Keskeytetään.")
-                exit()  # tai sys.exit()
+            if pauses:
+                jatka = input("Paina 'y' jatkaaksesi: ")
+                if jatka.lower() != "y":
+                    print("Keskeytetään.")
+                    exit()  # tai sys.exit()
 
 
         df_no_values = get_soup(df_no_values)
