@@ -440,7 +440,7 @@ if __name__ == "__main__":
     #Yhdisteään haetut tiedot takaisin
     #print(df_combined.head()) #DEBUG
 
-    df_combined.to_csv("df_after_soup_debug.csv", index = False)    #Haetaan hinta ja muut parametrit
+    #df_combined.to_csv("df_after_soup_debug.csv", index = False)    #Haetaan hinta ja muut parametrit
 
 
     def process_listing(soup):
