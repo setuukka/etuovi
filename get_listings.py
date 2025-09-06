@@ -56,7 +56,7 @@ except FileNotFoundError:
     print("We are not in Linux")
 
 debug_printing = False
-pauses = True
+pauses = False
 
 
 def current_date():
@@ -138,7 +138,7 @@ def update_listing_file():
         #poistetaan duplikaatot
     df_combined.drop_duplicates(subset = 'url', keep = 'last', inplace = True)
     #Tallennetaan df csv
-    df_combined.to_csv(file_path, index = False)
+    df_combined.to_csv(all_listings_path, index = False)
 
     return df_combined
 
