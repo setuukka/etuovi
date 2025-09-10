@@ -1,0 +1,381 @@
+/home/tuukka/python_scripts/etuovi/get_listings.py:453: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '1994' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:453: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '1994' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:453: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '5' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+Käyttäjä: tuukka
+HOME: /home/tuukka
+Ei spotlight-mainosta tällä sivulla.
+https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086
+Siirrytään sivulle..
+Sivu ladattu!
+Cookies-popup error
+An error occurred: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:199:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:552:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+Käsitellään sivu 1: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=1
+Spotlight-mainos poistettu.
+Löytyi 30 uutta linkkiä
+
+Käsitellään sivu 2: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=2
+Spotlight-mainos poistettu.
+Löytyi 29 uutta linkkiä
+
+Käsitellään sivu 3: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=3
+Spotlight-mainos poistettu.
+Löytyi 0 uutta linkkiä
+Ei uusia linkkejä – lopetetaan.
+Writing 59 rows to csv
+Save complete!
+Execution time: 47.18 seconds
+2025-09-05 09:56:13.872635
+/home/tuukka/python_scripts/etuovi/get_listings.py:455: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '1994' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:455: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '1994' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:455: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '5' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+Käyttäjä: tuukka
+HOME: /home/tuukka
+Starting 'get_urls' function
+Ei spotlight-mainosta tällä sivulla.
+https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086
+Siirrytään sivulle..
+Sivu ladattu!
+Cookies-popup error
+An error occurred: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:199:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:552:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+Käsitellään sivu 1: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=1
+Spotlight-mainos poistettu.
+Löytyi 30 uutta linkkiä
+
+Käsitellään sivu 2: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=2
+Spotlight-mainos poistettu.
+Löytyi 29 uutta linkkiä
+
+Käsitellään sivu 3: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=3
+Spotlight-mainos poistettu.
+Löytyi 0 uutta linkkiä
+Ei uusia linkkejä – lopetetaan.
+Writing 59 rows to 'latest_listings.csv'
+Save complete!
+Execution time: 41.85 seconds
+todays list has 59 listings
+Old dataframe contains 80 listings
+Startins 'get_soup' function
+Writing combined csv as 'all_listings.csv' with 80 rows and 124 columns
+Script completed at 2025-09-05 10:22:07.984751
+/home/tuukka/python_scripts/etuovi/get_listings.py:463: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '1994' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:463: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '1994' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:463: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '5' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+Käyttäjä: tuukka
+HOME: /home/tuukka
+Starting 'get_urls' function
+Ei spotlight-mainosta tällä sivulla.
+https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086
+Siirrytään sivulle..
+Sivu ladattu!
+Cookies-popup error
+An error occurred: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:199:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:552:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+Käsitellään sivu 1: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=1
+Spotlight-mainos poistettu.
+Löytyi 30 uutta linkkiä
+
+Käsitellään sivu 2: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=2
+Spotlight-mainos poistettu.
+Löytyi 29 uutta linkkiä
+
+Käsitellään sivu 3: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=3
+Spotlight-mainos poistettu.
+Löytyi 0 uutta linkkiä
+Ei uusia linkkejä – lopetetaan.
+Writing 59 rows to 'latest_listings.csv'
+Save complete!
+Execution time: 44.49 seconds
+Loaded latest listings from:  /home/tuukka/python_scripts/etuovi/latest_listings.csv
+todays list has 59 listings
+Old dataframe contains 80 listings
+Startins 'get_soup' function
+Saved combined listings to:  /home/tuukka/python_scripts/etuovi/all_listings.csv
+Script completed at 2025-09-05 10:39:10.956461
+Käyttäjä: tuukka
+HOME: /home/tuukka
+Starting 'get_urls' function
+Ei spotlight-mainosta tällä sivulla.
+https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086
+Siirrytään sivulle..
+Sivu ladattu!
+Cookies-popup error
+An error occurred: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:199:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:552:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+Käsitellään sivu 1: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=1
+Spotlight-mainos poistettu.
+Löytyi 30 uutta linkkiä
+
+Käsitellään sivu 2: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=2
+Spotlight-mainos poistettu.
+Löytyi 28 uutta linkkiä
+
+Käsitellään sivu 3: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=3
+Spotlight-mainos poistettu.
+Löytyi 0 uutta linkkiä
+Ei uusia linkkejä – lopetetaan.
+Writing 58 rows to 'latest_listings.csv'
+Save complete!
+Execution time: 45.10 seconds
+Startins 'get_soup' function
+Saved combined listings to:  /home/tuukka/python_scripts/etuovi/all_listings.csv
+Script completed at 2025-09-06 03:04:41.094505
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '5' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+Käyttäjä: tuukka
+HOME: /home/tuukka
+Starting 'get_urls' function
+Ei spotlight-mainosta tällä sivulla.
+https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086
+Siirrytään sivulle..
+Sivu ladattu!
+Cookies-popup error
+An error occurred: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:199:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:552:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+Käsitellään sivu 1: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=1
+Spotlight-mainos poistettu.
+Löytyi 30 uutta linkkiä
+
+Käsitellään sivu 2: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=2
+Spotlight-mainos poistettu.
+Löytyi 28 uutta linkkiä
+
+Käsitellään sivu 3: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=3
+Spotlight-mainos poistettu.
+Löytyi 0 uutta linkkiä
+Ei uusia linkkejä – lopetetaan.
+Writing 58 rows to 'latest_listings.csv'
+Save complete!
+Execution time: 42.22 seconds
+Looking for all_listings.csv at: /home/tuukka/python_scripts/etuovi/all_listings.csv
+Exists? True
+Loaded latest listings from:  /home/tuukka/python_scripts/etuovi/latest_listings.csv
+todays list has 59 listings
+Old dataframe contains 79 listings
+Startins 'get_soup' function
+Saved combined listings to:  /home/tuukka/python_scripts/etuovi/all_listings.csv
+Script completed at 2025-09-06 08:32:07.946907
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '5' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+Käyttäjä: tuukka
+HOME: /home/tuukka
+Starting 'get_urls' function
+Ei spotlight-mainosta tällä sivulla.
+https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086
+Siirrytään sivulle..
+Sivu ladattu!
+Cookies-popup error
+An error occurred: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:199:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:552:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+Käsitellään sivu 1: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=1
+Spotlight-mainos poistettu.
+Löytyi 30 uutta linkkiä
+
+Käsitellään sivu 2: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=2
+Spotlight-mainos poistettu.
+Löytyi 27 uutta linkkiä
+
+Käsitellään sivu 3: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=3
+Spotlight-mainos poistettu.
+Löytyi 0 uutta linkkiä
+Ei uusia linkkejä – lopetetaan.
+Writing 57 rows to 'latest_listings.csv'
+Save complete!
+Execution time: 47.55 seconds
+Looking for all_listings.csv at: /home/tuukka/python_scripts/etuovi/all_listings.csv
+Exists? True
+Loaded latest listings from:  /home/tuukka/python_scripts/etuovi/latest_listings.csv
+todays list has 58 listings
+Old dataframe contains 79 listings
+Startins 'get_soup' function
+Saved combined listings to:  /home/tuukka/python_scripts/etuovi/all_listings.csv
+Script completed at 2025-09-07 03:01:13.023812
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '5' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+Käyttäjä: tuukka
+HOME: /home/tuukka
+Starting 'get_urls' function
+Ei spotlight-mainosta tällä sivulla.
+https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086
+Siirrytään sivulle..
+Sivu ladattu!
+Cookies-popup error
+An error occurred: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:199:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:552:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+Käsitellään sivu 1: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=1
+Spotlight-mainos poistettu.
+Löytyi 30 uutta linkkiä
+
+Käsitellään sivu 2: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=2
+Spotlight-mainos poistettu.
+Löytyi 27 uutta linkkiä
+
+Käsitellään sivu 3: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=3
+Spotlight-mainos poistettu.
+Löytyi 0 uutta linkkiä
+Ei uusia linkkejä – lopetetaan.
+Writing 57 rows to 'latest_listings.csv'
+Save complete!
+Execution time: 40.01 seconds
+Looking for all_listings.csv at: /home/tuukka/python_scripts/etuovi/all_listings.csv
+Exists? True
+Loaded latest listings from:  /home/tuukka/python_scripts/etuovi/latest_listings.csv
+todays list has 58 listings
+Old dataframe contains 79 listings
+Startins 'get_soup' function
+Saved combined listings to:  /home/tuukka/python_scripts/etuovi/all_listings.csv
+Script completed at 2025-09-08 03:01:04.874384
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '5' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+Käyttäjä: tuukka
+HOME: /home/tuukka
+Starting 'get_urls' function
+Ei spotlight-mainosta tällä sivulla.
+https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086
+Siirrytään sivulle..
+Sivu ladattu!
+Cookies-popup error
+An error occurred: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:199:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:552:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+Käsitellään sivu 1: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=1
+Spotlight-mainos poistettu.
+Löytyi 30 uutta linkkiä
+
+Käsitellään sivu 2: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=2
+Spotlight-mainos poistettu.
+Löytyi 25 uutta linkkiä
+
+Käsitellään sivu 3: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=3
+Spotlight-mainos poistettu.
+Löytyi 0 uutta linkkiä
+Ei uusia linkkejä – lopetetaan.
+Writing 55 rows to 'latest_listings.csv'
+Save complete!
+Execution time: 41.67 seconds
+Looking for all_listings.csv at: /home/tuukka/python_scripts/etuovi/all_listings.csv
+Exists? True
+Loaded latest listings from:  /home/tuukka/python_scripts/etuovi/latest_listings.csv
+todays list has 58 listings
+Old dataframe contains 79 listings
+Startins 'get_soup' function
+Saved combined listings to:  /home/tuukka/python_scripts/etuovi/all_listings.csv
+Script completed at 2025-09-09 03:01:06.431466
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '2008' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+/home/tuukka/python_scripts/etuovi/get_listings.py:462: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise an error in a future version of pandas. Value '5' has dtype incompatible with float64, please explicitly cast to a compatible dtype first.
+  df_combined.at[idx, key] = value
+Käyttäjä: tuukka
+HOME: /home/tuukka
+Starting 'get_urls' function
+Ei spotlight-mainosta tällä sivulla.
+https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086
+Siirrytään sivulle..
+Sivu ladattu!
+Cookies-popup error
+An error occurred: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:199:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:552:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+Käsitellään sivu 1: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=1
+Spotlight-mainos poistettu.
+Löytyi 30 uutta linkkiä
+
+Käsitellään sivu 2: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=2
+Spotlight-mainos poistettu.
+Löytyi 25 uutta linkkiä
+
+Käsitellään sivu 3: https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086&sivu=3
+Spotlight-mainos poistettu.
+Löytyi 0 uutta linkkiä
+Ei uusia linkkejä – lopetetaan.
+Writing 55 rows to 'latest_listings.csv'
+Save complete!
+Execution time: 41.99 seconds
+Looking for all_listings.csv at: /home/tuukka/python_scripts/etuovi/all_listings.csv
+Exists? True
+Loaded latest listings from:  /home/tuukka/python_scripts/etuovi/latest_listings.csv
+todays list has 58 listings
+Old dataframe contains 79 listings
+Startins 'get_soup' function
+Saved combined listings to:  /home/tuukka/python_scripts/etuovi/all_listings.csv
+Script completed at 2025-09-10 03:01:07.864102
