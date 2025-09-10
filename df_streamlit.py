@@ -74,7 +74,8 @@ if lit:
     tab1, tab2, tab3, tab4 = st.tabs(["Grouped by room count", "Colored", "Boxplot", "Grouped by street"])
 
     with tab1:
-        st.write(f"Rows {df_rows}, columns {df_columns}")
+        #st.write(f"Rows {df_rows}, columns {df_columns}")
+        st.write(df.shape)
         if yksio_checkbox:
             st.write("One room")
             yksio = df[df['rooms'] == 1]
