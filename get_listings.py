@@ -21,7 +21,6 @@ import re
 import requests
 from pathlib import Path
 import numpy as np
-import os
 
 BASE_DIR = Path(__file__).parent.resolve()
 all_listings_path = BASE_DIR / "all_listings.csv"
@@ -437,10 +436,7 @@ if __name__ == "__main__":
         if debug_printing:
             print(f"Got KeyError while creating missing prices dataframe!")
         df_combined = get_soup(df_combined)
-    #Yhdisteään haetut tiedot takaisin
-    #print(df_combined.head()) #DEBUG
 
-    #df_combined.to_csv("df_after_soup_debug.csv", index = False)    #Haetaan hinta ja muut parametrit
 
 
     def process_listing(soup):
@@ -456,8 +452,6 @@ if __name__ == "__main__":
     for idx, row in df_combined.iterrows():
         try:
             data = process_listing(row['soup'])
-            #if debug_printing:
-                #print(f"idx={idx} keys: {list(data.keys())}")  # ✅ Tulosta mukana olevat kentät
             for key, value in data.items():
                 df_combined.at[idx, key] = value
         except Exception as e:
@@ -465,9 +459,7 @@ if __name__ == "__main__":
     for idx, row in df_combined.iterrows():
         data = extract_em_div_pairs(row['soup'])
     df_combined['huoneita'] = df_combined['Huoneistoselitelmä'].str[0]
-    #print(f"csv for streamlit saved with {len(df)} rows on {datetime.now()}")
-    #print(f"Writing combined csv as 'all_listings.csv' with {df_combined.shape[0]} rows and {df_combined.shape[1]} columns")
-    #df_combined.to_csv("all_listings.csv", index = False)
+
     df_combined.to_csv(all_listings_path, index = False)
     print("Saved combined listings to: ", all_listings_path)
     print(f"Script completed at {datetime.now()}")
