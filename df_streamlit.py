@@ -65,13 +65,16 @@ if lit:
     active_checkbox = st.sidebar.checkbox(label = "Active listings", value = True)
     passive_checkbox = st.sidebar.checkbox(label = "Passive listings", value = True)
 
+    df_rows = df.shape[0]
+    df_columns = df.shape[1]
+
     df = dataframe_selector(df, active=active_checkbox, passive=passive_checkbox)
 
 
     tab1, tab2, tab3, tab4 = st.tabs(["Grouped by room count", "Colored", "Boxplot", "Grouped by street"])
 
     with tab1:
-        st.write(df.shape)
+        st.write(f"Rows {df_rows}, columns {df_columns}")
         if yksio_checkbox:
             st.write("One room")
             yksio = df[df['rooms'] == 1]
