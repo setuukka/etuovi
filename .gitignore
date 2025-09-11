@@ -5,3 +5,7 @@ test_*
 *.sh
 *.ipynb
 all_listings.csv
+all_listings_backup.csv
+latest_listings.csv
+*.log
+logs/
