@@ -26,6 +26,9 @@ if lit:
     st.set_page_config(layout = "wide")
 df = pd.read_csv("df_for_streamlit.csv")
 df = df.drop(columns = ['is_sauna', 'is_balcony','is_elevator'])
+print(df.columns)
+
+df['streetname_and_number'] = df['street'].astype(str) + " " + df['street_number'].astype(str)
 #df = df.drop(columns = ['cond_adequate', 'cond_terrible', 'cond_unclassified'])
 
 styled_df = df.style.background_gradient(subset=['hinta'], cmap='RdYlGn_r')
@@ -120,15 +123,16 @@ if lit:
             df, x = 'rooms', y = 'price', points = 'all')
         st.write(fig)
 
-        df_by_street = df.sort_values(by = ['street','street_number','staircase'])
-        df_by_street = df_by_street[['street','street_number','staircase','rooms','price','price_sqm','maintenance_fee','apartment_size']]
+        df_by_street = df.sort_values(by = ['streetname_and_number','staircase'])
+        df_by_street = df_by_street[['streetname_and_number','staircase','rooms','price','price_sqm','maintenance_fee','apartment_size']]
         st.dataframe(df_by_street)
 
 
     with tab4:
-        for street in df['street'].unique():
+        df = df.sort_values(by = ['streetname_and_number'])
+        for street in df['streetname_and_number'].unique():
             st.write(f"### {street}")
-            st.dataframe(df[df['street'] == street], use_container_width=True)
+            st.dataframe(df[df['streetname_and_number'] == street], use_container_width=True)
 
     
 
