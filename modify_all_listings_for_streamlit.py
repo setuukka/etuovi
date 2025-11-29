@@ -5,8 +5,8 @@ from datetime import datetime
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.resolve()
-all_listings_path = BASE_DIR / "all_listings.csv"
-df_for_streamlit_path = BASE_DIR / "df_for_streamlit.csv"
+all_listings_path = BASE_DIR / "rajakyla_listings.csv"
+df_for_streamlit_path = BASE_DIR / "df_for_streamlit_rajakyla.csv"
 
 # %%
 #df = pd.read_csv('all_listings.csv')

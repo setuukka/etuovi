@@ -1,4 +1,4 @@
-#Tämä ohjelma hakee kaikkien myynnissä Oulun Heinäpäässä olevien kerrostaloasuntojen tiedot
+#Tämä ohjelma hakee kaikkien myynnissä Oulun Rajakylässä olevien kerrostaloasuntojen tiedot
 #Ja tallentaa ne päivämäärä_listings.csv nimettyyn tiedostoon.
 #Se avataan käsittelyä varten soup_testing.py tiedostossa
 import os
@@ -23,8 +23,8 @@ from pathlib import Path
 import numpy as np
 
 BASE_DIR = Path(__file__).parent.resolve()
-all_listings_path = BASE_DIR / "all_listings.csv"
-latest_listings_path = BASE_DIR / "latest_listings.csv"
+all_listings_path = BASE_DIR / "rajakyla_listings.csv"
+latest_listings_path = BASE_DIR / "rajakyla_latest_listings.csv"
 
 
 
@@ -93,10 +93,9 @@ def wait_random():
 
 def update_listing_file():
 
-    print("Looking for all_listings.csv at:", all_listings_path)
+    print("Looking for rajakyla_listing.csv at:", all_listings_path)
     print("Exists?", all_listings_path.exists())
     if all_listings_path.exists():
-        #df_new = pd.read_csv('latest_listings.csv')
         df_new = pd.read_csv(latest_listings_path)
         print("Loaded latest listings from: ", latest_listings_path)
         url_list = df_new['url'].tolist()
@@ -133,7 +132,7 @@ def update_listing_file():
         if debug_printing:
             print(f"Old file was not found. Using only today's listings")
         #Tiedostoa ei ole, käytetään vain uusia
-        df_combined = pd.read_csv('latest_listings.csv')
+        df_combined = pd.read_csv('rajakyla_latest_listings.csv')
         #poistetaan duplikaatot
     df_combined.drop_duplicates(subset = 'url', keep = 'last', inplace = True)
     #Tallennetaan df csv
@@ -219,8 +218,8 @@ def get_urls(base_url, page):
     df = df.drop_duplicates(subset = ['url'], keep = 'last')
 
 
-    print(f"Writing {len(url_list)} rows to 'latest_listings.csv'")
-    df.to_csv("latest_listings.csv", index=False)
+    print(f"Writing {len(url_list)} rows to 'rajakyla_latest_listings.csv'")
+    df.to_csv("rajakyla_latest_listings.csv", index=False)
     print("Save complete!")
 
     end_time_etuovi = time.time()
@@ -400,7 +399,7 @@ def extract_year_built(soup):
     return valmistusvuosi
 
 if __name__ == "__main__":
-    base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086'
+    base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/rajakyla?haku=M2371850322'
     page = 1
     seen_hrefs = set()
     url_list = []

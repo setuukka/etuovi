@@ -24,7 +24,7 @@ def format_finnish(x):
 lit = True
 if lit:
     st.set_page_config(layout = "wide")
-df = pd.read_csv("df_for_streamlit.csv")
+df = pd.read_csv("df_for_streamlit_rajakyla.csv")
 df = df.drop(columns = ['is_sauna', 'is_balcony','is_elevator'])
 #df = df.drop(columns = ['cond_adequate', 'cond_terrible', 'cond_unclassified'])
 
