@@ -28,6 +28,8 @@ df = pd.read_csv("df_for_streamlit_rajakyla.csv")
 df = df.drop(columns = ['is_sauna', 'is_balcony','is_elevator'])
 #df = df.drop(columns = ['cond_adequate', 'cond_terrible', 'cond_unclassified'])
 
+df['streetname_and_number'] = df['street'].astype(str) + " " + df['street_number'].astype(str)
+
 styled_df = df.style.background_gradient(subset=['hinta'], cmap='RdYlGn_r')
 
 #Filter that returns the correct dataframe based on checkboxes
@@ -126,7 +128,7 @@ if lit:
 
 
     with tab4:
-        for street in df['street'].unique():
+        for street in df['streetname_and_number'].unique():
             st.write(f"### {street}")
             st.dataframe(df[df['street'] == street], use_container_width=True)
 
