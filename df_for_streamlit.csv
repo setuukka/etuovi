@@ -70,7 +70,7 @@ https://www.etuovi.com/kohde/80433947,1956,2,42.0,89500,2130.95,176.4,4.2,281.4,
 https://www.etuovi.com/kohde/80434295,1971,2,56.0,125000,2232.14,235.2,4.2,263.2,False,good,,Torikatu,80,B,2/3,Asunto Oy Oulun Torikatu 80,own,2025-08-17,2025-11-26,101.0,1970,0,1,0
 https://www.etuovi.com/kohde/601883,1989,3,67.5,169500,2511.11,334.13,4.95,365.68,False,,,Puistokatu,12,A,2/4 (alin kerros),Asunto Oy Voimapuisto,own,2025-08-17,2025-12-04,109.0,1980,1,1,1
 https://www.etuovi.com/kohde/43172909,1965,1,30.0,68000,2266.67,107.0,3.57,301.25,False,good,,Aleksanterinkatu,58,,1/3 (alin kerros),Asunto-osakeyhtiö ISO-IIKKA,rental,2025-08-17,2025-10-14,58.0,1960,0,0,0
-https://www.etuovi.com/kohde/80434905,1974,2,57.0,149000,2614.04,228.0,4.0,228.0,True,good,,Isokatu,73,B,3/5,Asunto Oy Isokatu 73,own,2025-08-29,,,1970,0,1,1
+https://www.etuovi.com/kohde/80434905,1974,2,57.0,149000,2614.04,228.0,4.0,228.0,False,good,,Isokatu,73,B,3/5,Asunto Oy Isokatu 73,own,2025-08-29,2025-12-06,99.0,1970,0,1,1
 https://www.etuovi.com/kohde/21649269,1959,2,41.0,89500,2182.93,246.1,6.0,248.0,True,good,,Tarkka-ampujankatu,20,,3/6,Asunto Oy Isokulma,rental,2025-08-29,,,1950,0,1,1
 https://www.etuovi.com/kohde/20699774,1989,2,54.5,129000,2366.97,262.85,4.82,289.4,True,good,,Puistokatu,12,,2/4,Asunto Oy Voimapuisto,own,2025-08-29,,,1980,1,1,1
 https://www.etuovi.com/kohde/by2679,1970,4,98.5,287000,2913.71,453.1,4.6,453.1,True,good,,Kirkkokatu,69,,2/5,Asunto Oy Kirkkokatu 67-69,own,2025-08-29,,,1970,0,1,1
@@ -127,3 +127,5 @@ https://www.etuovi.com/kohde/20599860,1975,1,27.5,0,0.0,115.72,4.21,187.26,False
 https://www.etuovi.com/kohde/609353,1957,2,58.5,112000,1914.53,292.5,5.0,760.5,True,adequate,,Siljonkatu,77,B,1/3 (alin kerros),Asunto Oy Arvinkatu 10,own,,,,1950,0,1,0
 https://www.etuovi.com/kohde/80470886,1973,1,34.0,79000,2323.53,166.6,4.9,202.98,True,good,,Puistokatu,22,,3/3 (ylin kerros),Asunto Oy Oulun Puistokatu 22,own,,,,1970,0,0,0
 https://www.etuovi.com/kohde/80472709,1961,1,26.0,69000,2653.85,120.4,4.63,242.95,True,good,,Aleksanterinkatu,81,B,2/6,Asunto Oy Aleksanterinkulma,rental,2025-12-05,,,1960,0,0,1
+https://www.etuovi.com/kohde/609341,2018,3,88.5,469000,5299.44,292.05,3.3,0.0,True,,,Isokatu,87,A,15/16,As. Oy Oulun Puistovahti,own,2025-12-06,,,2010,0,1,1
+https://www.etuovi.com/kohde/2271168,1974,2,47.0,99000,2106.38,164.5,3.5,164.5,True,good,,Peltokatu,18,,3/5,Asunto Oy Oulun Peltokatu 18,own,2025-12-06,,,1970,0,1,1
