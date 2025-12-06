@@ -6,8 +6,8 @@ test_*
 *.ipynb
 all_listings.csv
 all_listings_backup.csv
-rajakyla_latest_listings.csv
-rajakyla_listings.csv
+#rajakyla_latest_listings.csv
+#rajakyla_listings.csv
 
 latest_listings.csv
 *.log

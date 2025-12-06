@@ -19,3 +19,5 @@ Traceback (most recent call last):
   File "/home/tuukka/python_scripts/etuovi/rajakyla/modify_all_listings_for_streamlit.py", line 2, in <module>
     import pandas as pd
 ModuleNotFoundError: No module named 'pandas'
+csv for streamlit saved with 29 rows on 2025-12-05 01:15:01.814450
+csv for streamlit saved with 29 rows on 2025-12-06 01:15:01.786242
