@@ -130,7 +130,7 @@ if lit:
     with tab4:
         for street in df['streetname_and_number'].unique():
             st.write(f"### {street}")
-            st.dataframe(df[df['street'] == street], use_container_width=True)
+            st.dataframe(df[df['streetname_and_number'] == street], use_container_width=True)
 
     
 
