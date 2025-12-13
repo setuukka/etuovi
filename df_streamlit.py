@@ -128,8 +128,10 @@ if lit:
 
 
     with tab4:
+        df = df[['streetname_and_number','url','year_built','rooms','apartment_size','price','price_sqm','maintenance_fee','condition','decade_built']]
+        df = df.sort_values(by = ['streetname_and_number'])
         for street in df['streetname_and_number'].unique():
-            st.write(f"### {street}")
+            st.write(f"### {street} - {df[df['streetname_and_number'] == street]['year_built'].min()}")
             st.dataframe(df[df['streetname_and_number'] == street], use_container_width=True)
 
     
