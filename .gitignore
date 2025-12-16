@@ -9,3 +9,5 @@ all_listings_backup.csv
 latest_listings.csv
 *.log
 logs/
+*.csv
+!*streamlit.csv

@@ -1,5 +1,5 @@
 #This code scrapes all listings from etuovi.com based on the provided URL
-#and saves them to listings_(location_based_on_url).csv
+#and saves them to (location_)listings.csv
 
 
 import os
@@ -25,8 +25,7 @@ import numpy as np
 import sys
 
 BASE_DIR = Path(__file__).parent.resolve()
-all_listings_path = BASE_DIR / "all_listings.csv"
-latest_listings_path = BASE_DIR / "latest_listings.csv"
+
 
 
 
@@ -135,7 +134,7 @@ def update_listing_file():
         if debug_printing:
             print(f"Old file was not found. Using only today's listings")
         #Tiedostoa ei ole, käytetään vain uusia
-        df_combined = pd.read_csv('latest_listings.csv')
+        df_combined = pd.read_csv(latest_listings_path)
         #poistetaan duplikaatot
     df_combined.drop_duplicates(subset = 'url', keep = 'last', inplace = True)
     #Tallennetaan df csv
@@ -211,7 +210,6 @@ def get_urls(base_url, page):
     driver.quit()
 
     date = current_date()
-    #filename = f"{date}_listings.csv"
 
     df = pd.DataFrame(url_list, columns=['url'])
     df['fetch_date'] = current_date()
@@ -221,8 +219,8 @@ def get_urls(base_url, page):
     df = df.drop_duplicates(subset = ['url'], keep = 'last')
 
 
-    print(f"Writing {len(url_list)} rows to 'latest_listings.csv'")
-    df.to_csv("latest_listings.csv", index=False)
+    print(f"Writing {len(url_list)} rows to {latest_listings_path}.csv'")
+    df.to_csv(latest_listings_path, index=False)
     print("Save complete!")
 
     end_time_etuovi = time.time()
@@ -402,17 +400,28 @@ def extract_year_built(soup):
     return valmistusvuosi
 
 if __name__ == "__main__":
-    #Check if argument for url was given:
+    #Check if argument for url was given. If not, terminate process:
     if len(sys.argv) < 2:
         print("Argument for url was not given. Terminating process")
         sys.exit()
     else:
         base_url = str(sys.argv[1])
-    #base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086'
+
+    #create filenames based on the url sections
+    filename_prefix = base_url.split('?')[0].split('/')
+    filename_prefix = filename_prefix[-2] + "_" + filename_prefix[-1]
+
+    #create paths and filenames for excisting (all_listings) and new (latest_listings) files
+    all_listings_path = BASE_DIR / f"{filename_prefix}_all_listings.csv"
+    latest_listings_path = BASE_DIR / f"{filename_prefix}_latest_listings.csv"
+
+    print(all_listings_path)
+    print(all_listings_path)
+
     page = 1
     seen_hrefs = set()
     url_list = []
-    get_urls(base_url, page) #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
+    get_urls(base_url, page) #Haetaan listausten osoitteet, tallennetaan ne latest_listings_path
 
 
     df_combined = update_listing_file()
@@ -420,10 +429,6 @@ if __name__ == "__main__":
         print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
     if pauses:
         pause = input("THIS IS A PAUSE. PRESS ANY KEY TO CONTINUE")
-
-    #TAllennetaan väliaikaisesti testiä varten df_combined csv:ksi, jotta ei tarvitse tehdä etuovesta hakuja testiä varten
-    #df_combined.to_csv("csv_with_soup_temp.csv")
-    #df_combined = pd.read_csv('csv_with_soup_temp.csv')
 
     #Luodaan df niistä riveistä, joita puuttuu hinta ja haetaan SOUP niille
     try:

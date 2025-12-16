@@ -1,0 +1,33 @@
+url,year_built,rooms,apartment_size,price,price_sqm,maintenance_fee,maintenance_sqm,total_maintenance,active,condition,street,street_number,staircase,total_floors,housing_company,plot_ownership,fetch_date,removal_date,sell_time_days,decade_built,is_sauna,is_balcony,is_elevator
+https://www.etuovi.com/kohde/1406616,1973,3,79.5,45000,566.04,222.98,2.8,334.47,True,Välttävä,Juolavehnäntie,1,,1/2,Asunto Osakeyhtiö Koisopuiston Rivitalot,rental,2025-12-16,,,1970,1,1,0
+https://www.etuovi.com/kohde/1406498,1971,5,120.0,0,0.0,0.0,0.0,0.0,True,good,Tatartie,12,,,,rental,2025-12-16,,,1970,1,0,0
+https://www.etuovi.com/kohde/46284735,2001,1,40.0,59000,1475.0,160.0,4.0,160.0,True,good,Tervakukkatie,42,,1/5 (alin kerros),Asunto Oy Oulun Keto-orvokki,rental,2025-12-16,,,2000,0,1,1
+https://www.etuovi.com/kohde/588508,1973,2,46.5,22900,492.47,148.8,3.2,328.8,True,,Ruiskukkatie,3,B,4/8,As Oy Oulun Ruiskukkatie 3,rental,2025-12-16,,,1970,0,0,1
+https://www.etuovi.com/kohde/80469553,1971,4,94.0,95000,1010.64,0.0,0.0,0.0,True,good,Natatie,4,,,,rental,2025-12-16,,,1970,1,0,0
+https://www.etuovi.com/kohde/51545736,1972,5,135.0,160000,1185.19,0.0,0.0,0.0,True,good,Tatartie,14,,,,rental,2025-12-16,,,1970,1,0,0
+https://www.etuovi.com/kohde/1404674,2004,2,58.0,78000,1344.83,226.2,3.9,226.2,True,good,Tervakukkatie,48,,5/5,Asunto Oy Oulun Valkovuokko,rental,2025-12-16,,,2000,0,1,1
+https://www.etuovi.com/kohde/80424687,1975,3,116.0,122000,1051.72,0.0,0.0,0.0,True,good,Varsankellotie,7,,,,rental,2025-12-16,,,1970,1,0,0
+https://www.etuovi.com/kohde/80443563,1972,4,129.0,89500,693.8,459.24,3.56,523.74,True,good,Rentukkatie,17,A,2/2,As Oy Rentukkatie 17,rental,2025-12-16,,,1970,1,1,0
+https://www.etuovi.com/kohde/80463901,2007,4,119.0,199000,1672.27,428.4,3.6,428.4,True,good,Nurmikkakuja,1,A,1/2,Asunto Oy Oulun Helminiitty,rental,2025-12-16,,,2000,1,1,0
+https://www.etuovi.com/kohde/21346004,1976,3,80.0,65000,812.5,200.0,2.5,566.96,True,adequate,Mataratie,3,,1/2,Asunto Oy Mataratien Rivitalot,rental,2025-12-16,,,1970,1,1,0
+https://www.etuovi.com/kohde/21382292,1971,4,134.0,119000,888.06,0.0,0.0,0.0,True,good,Sauniotie,6,,,,rental,2025-12-16,,,1970,1,0,0
+https://www.etuovi.com/kohde/20889688,1975,2,63.5,35000,551.18,254.0,4.0,463.55,True,adequate,Tervakukkatie,36,,5/9,Asunto Oy Oulun Tervakukka,rental,2025-12-16,,,1970,0,1,0
+https://www.etuovi.com/kohde/80462762,1975,4,109.5,125000,1141.55,0.0,0.0,0.0,True,good,Simaketie,2,,,,rental,2025-12-16,,,1970,1,0,0
+https://www.etuovi.com/kohde/20101261,1975,2,63.5,35000,551.18,254.0,4.0,463.55,True,good,Tervakukkatie,36,,4/9,Asunto Oy Oulun Tervakukka,rental,2025-12-16,,,1970,0,1,1
+https://www.etuovi.com/kohde/21377420,1973,2,55.0,42000,763.64,310.16,5.64,310.16,True,good,Tervakukkakuja,7,,2/3,As Oy Oulun Sotaveteraanit,rental,2025-12-16,,,1970,0,1,0
+https://www.etuovi.com/kohde/1398696,1976,3,81.5,65000,797.55,309.7,3.8,457.33,True,Välttävä,Mataratie,7,,1/2,Asunto Oy Leskenlehti,rental,2025-12-16,,,1970,1,1,0
+https://www.etuovi.com/kohde/20132996,1978,3,83.0,79000,951.81,282.2,3.4,400.4,True,good,Mataratie,16,,1/2,Asunto Oy Talvikkipuiston Rivitalot,rental,2025-12-16,,,1970,1,1,0
+https://www.etuovi.com/kohde/80418970,1973,2,55.0,48000,872.73,307.39,5.59,441.87,True,good,Tervakukkakuja,7,B,1/3 (alin kerros),Asunto Oy Oulun Sotaveteraanit,rental,2025-12-16,,,1970,0,1,0
+https://www.etuovi.com/kohde/1384825,1974,4,120.0,75000,625.0,0.0,0.0,0.0,True,good,Kortetie,2,,,,rental,2025-12-16,,,1970,1,0,0
+https://www.etuovi.com/kohde/1384271,1975,2,59.0,0,0.0,200.6,3.4,301.2,True,good,Tervakukkatie,40,,3/3,Asunto Oy Tervakukkatie 38-40,rental,2025-12-16,,,1970,0,1,0
+https://www.etuovi.com/kohde/x47939,1973,3,78.5,68258,869.53,222.98,2.84,222.98,True,adequate,Juolavehnätie,6,,,Asunto Osakeyhtiö Koisopuiston Rivitalot,,2025-12-16,,,1970,1,1,0
+https://www.etuovi.com/kohde/x46932,1973,4,92.0,46000,500.0,363.0,3.95,363.0,True,adequate,nan,0,,4/4 (ylin kerros),,rental,2025-12-16,,,1970,0,1,0
+https://www.etuovi.com/kohde/21675751,1973,2,61.5,21900,356.1,196.8,3.2,434.4,True,adequate,Ruiskukkatie,3,,4/8,As Oy Oulun Ruiskukkatie 3,rental,2025-12-16,,,1970,0,1,1
+https://www.etuovi.com/kohde/w92866,1975,1,30.0,0,0.0,144.0,4.8,156.09,True,good,Tervakukkatie,116,,5/8,Asunto oy Oulun tervakukka,rental,2025-12-16,,,1970,0,0,1
+https://www.etuovi.com/kohde/1383321,1974,4,142.0,0,0.0,0.0,0.0,0.0,True,good,Kultapiiskutie,2,,,,rental,2025-12-16,,,1970,1,0,0
+https://www.etuovi.com/kohde/w74788,1975,2,63.0,0,0.0,304.8,4.84,553.28,True,good,Tervakukkatie,36,,6/8,Asunto Oy Oulun Tervakukka,,2025-12-16,,,1970,0,1,1
+https://www.etuovi.com/kohde/1372116,1975,3,80.0,109000,1362.5,200.0,2.5,426.85,True,good,Mataratie,3,,1/2,Asunto Oy Mataratien Rivitalot,rental,2025-12-16,,,1970,1,1,0
+https://www.etuovi.com/kohde/1370328,1973,1,30.5,26900,881.97,97.6,3.2,197.2,True,good,Ruiskukkatie,3,,7/8,As Oy Oulun Ruiskukkatie 3,rental,2025-12-16,,,1970,0,0,1
+https://www.etuovi.com/kohde/t62862,1973,3,78.5,67900,864.97,251.2,3.2,503.6,True,good,Ruiskukkatie,3,,8/8 (ylin kerros),As Oy Oulun Ruiskukkatie 3,rental,2025-12-16,,,1970,0,1,1
+https://www.etuovi.com/kohde/s84697,1975,3,63.5,46900,738.58,304.6,4.8,553.08,True,good,Tervakukkatie,36,,3/8,,rental,2025-12-16,,,1970,0,1,1
+https://www.etuovi.com/kohde/r27638,1973,1,34.0,34400,1011.76,175.6,5.16,285.1,True,,Tervakukkakuja,5,,1/3 (alin kerros),Asunto Oy Tervakukkatie 16,rental,2025-12-16,,,1970,0,0,0
