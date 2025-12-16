@@ -1,6 +1,7 @@
-#Tämä ohjelma hakee kaikkien myynnissä Oulun Heinäpäässä olevien kerrostaloasuntojen tiedot
-#Ja tallentaa ne päivämäärä_listings.csv nimettyyn tiedostoon.
-#Se avataan käsittelyä varten soup_testing.py tiedostossa
+#This code scrapes all listings from etuovi.com based on the provided URL
+#and saves them to listings_(location_based_on_url).csv
+
+
 import os
 from selenium import webdriver
 #from selenium.webdriver.chrome.service import Service
@@ -21,6 +22,7 @@ import re
 import requests
 from pathlib import Path
 import numpy as np
+import sys
 
 BASE_DIR = Path(__file__).parent.resolve()
 all_listings_path = BASE_DIR / "all_listings.csv"
@@ -400,7 +402,13 @@ def extract_year_built(soup):
     return valmistusvuosi
 
 if __name__ == "__main__":
-    base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086'
+    #Check if argument for url was given:
+    if len(sys.argv) < 2:
+        print("Argument for url was not given. Terminating process")
+        sys.exit()
+    else:
+        base_url = str(sys.argv[1])
+    #base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086'
     page = 1
     seen_hrefs = set()
     url_list = []
