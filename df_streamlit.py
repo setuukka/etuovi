@@ -7,6 +7,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.express as px
 import locale
+import sys
 #from geopy.geocoders import Nominatim
 #import regex as re
 
@@ -24,7 +25,16 @@ def format_finnish(x):
 lit = True
 if lit:
     st.set_page_config(layout = "wide")
-df = pd.read_csv("df_for_streamlit.csv")
+
+#Check if argument for url was given. If not, terminate process:
+if len(sys.argv) < 2:
+    print("Argument for url was not given. Terminating process")
+    sys.exit()
+else:
+    filename = str(sys.argv[1])
+
+
+df = pd.read_csv(filename)
 df = df.drop(columns = ['is_sauna', 'is_balcony','is_elevator'])
 print(df.columns)
 
