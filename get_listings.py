@@ -3,6 +3,7 @@
 
 
 import os
+import getpass
 from selenium import webdriver
 #from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -49,11 +50,14 @@ poistettavat_sarakkeet = ['Unnamed: 0','Sijainti','Omistusmuoto',
        'Asuinkerrosten määrä', 'Lämmitysjärjestelmä', 'Vesijohto',
        'Asunnon käytössä olevat autopaikat', 'Lisätietoa tontin omistuksesta',
        'Lisätietoa tontista', 'Ajo-ohjeet','Taloyhtiön nimi','Isännöitsijän yhteystiedot','Kokonaispinta-ala']
+
 try:
-    print("Käyttäjä:", os.getlogin())
+    # Käyttäjän nimi Dockerissa / Linuxissa
+    user = getpass.getuser()
+    print("Käyttäjä:", user)
     print("HOME:", os.environ.get("HOME"))
-except FileNotFoundError:
-    print("We are not in Linux")
+except Exception as e:
+    print("Ei saatu käyttäjää:", e)
 
 debug_printing = False
 pauses = False
@@ -414,9 +418,6 @@ if __name__ == "__main__":
     #create paths and filenames for excisting (all_listings) and new (latest_listings) files
     all_listings_path = BASE_DIR / f"{filename_prefix}_all_listings.csv"
     latest_listings_path = BASE_DIR / f"{filename_prefix}_latest_listings.csv"
-
-    print(all_listings_path)
-    print(all_listings_path)
 
     page = 1
     seen_hrefs = set()
