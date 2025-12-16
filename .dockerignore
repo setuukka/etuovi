@@ -1,0 +1,5 @@
+venv/
+*.csv
+.git/
+./ipynb_checkpoints
+logs/
