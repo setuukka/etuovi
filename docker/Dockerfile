@@ -14,7 +14,8 @@ RUN GECKO_VERSION=v0.33.0 \
 
 WORKDIR /app
 
-COPY . /app
+COPY scripts/ /app/scripts
+COPY docker/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
