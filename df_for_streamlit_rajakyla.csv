@@ -1,7 +1,7 @@
 url,year_built,rooms,apartment_size,price,price_sqm,maintenance_fee,maintenance_sqm,total_maintenance,active,condition,street,street_number,staircase,total_floors,housing_company,plot_ownership,fetch_date,removal_date,sell_time_days,decade_built,is_sauna,is_balcony,is_elevator
 https://www.etuovi.com/kohde/80469553,1971,4,94.0,95000,1010.64,0.0,0.0,0.0,True,good,Natatie,4,,,,rental,2025-12-04,,,1970,1,0,0
 https://www.etuovi.com/kohde/51545736,1972,5,135.0,160000,1185.19,0.0,0.0,0.0,True,good,Tatartie,14,,,,rental,2025-12-04,,,1970,1,0,0
-https://www.etuovi.com/kohde/1404674,2004,2,58.0,78000,1344.83,226.2,3.9,226.2,True,good,Tervakukkatie,48,,5/5,Asunto Oy Oulun Valkovuokko,rental,2025-12-04,,,2000,0,1,1
+https://www.etuovi.com/kohde/1404674,2004,2,58.0,78000,1344.83,226.2,3.9,226.2,False,good,Tervakukkatie,48,,5/5,Asunto Oy Oulun Valkovuokko,rental,2025-12-04,2026-01-11,38.0,2000,0,1,1
 https://www.etuovi.com/kohde/80424687,1975,3,116.0,122000,1051.72,0.0,0.0,0.0,True,good,Varsankellotie,7,,,,rental,2025-12-04,,,1970,1,0,0
 https://www.etuovi.com/kohde/80443563,1972,4,129.0,89500,693.8,459.24,3.56,523.74,True,good,Rentukkatie,17,A,2/2,As Oy Rentukkatie 17,rental,2025-12-04,,,1970,1,1,0
 https://www.etuovi.com/kohde/80463901,2007,4,119.0,199000,1672.27,428.4,3.6,428.4,True,good,Nurmikkakuja,1,A,1/2,Asunto Oy Oulun Helminiitty,rental,2025-12-04,,,2000,1,1,0
