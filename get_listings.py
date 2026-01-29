@@ -62,7 +62,7 @@ def current_date():
     return datetime.now().strftime('%d%m%Y')
 
 start_time_etuovi = time.time()
-
+print("start time is ", start_time_etuovi)
 if os.name == 'nt': #Windows
     geckodriver_path = 'geckodriver.exe'
 else:
