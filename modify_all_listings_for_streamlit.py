@@ -92,6 +92,7 @@ df['maintenance_sqm'] = df['maintenance_sqm'].apply(lambda x : round(x,2))
 
 # %%
 #Create decade built column
+df['year_built'] = df['year_built'].fillna("1000")
 df['decade_built'] = df['year_built'].apply(lambda x : int(str(x)[:3]+"0"))
 
 # %%
