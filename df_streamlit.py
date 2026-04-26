@@ -73,7 +73,7 @@ if lit:
     df = dataframe_selector(df, active=active_checkbox, passive=passive_checkbox)
 
 
-    tab1, tab2, tab3, tab4 = st.tabs(["Grouped by room count", "Colored", "Boxplot", "Grouped by street"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Grouped by room count", "Colored", "Boxplot", "Grouped by street","Listed / Sold weekly"])
 
     with tab1:
         #st.write(f"Rows {df_rows}, columns {df_columns}")
@@ -128,11 +128,32 @@ if lit:
 
 
     with tab4:
-        df = df[['streetname_and_number','url','year_built','rooms','apartment_size','price','price_sqm','maintenance_fee','condition','decade_built']]
-        df = df.sort_values(by = ['streetname_and_number'])
-        for street in df['streetname_and_number'].unique():
-            st.write(f"### {street} - {df[df['streetname_and_number'] == street]['year_built'].min()}")
-            st.dataframe(df[df['streetname_and_number'] == street], use_container_width=True)
+        dft4 = df[['streetname_and_number','url','year_built','rooms','apartment_size','price','price_sqm','maintenance_fee','condition','decade_built']]
+        dft4 = dft4.sort_values(by = ['streetname_and_number'])
+        for street in dft4['streetname_and_number'].unique():
+            st.write(f"### {street} - {dft4[dft4['streetname_and_number'] == street]['year_built'].min()}")
+            st.dataframe(dft4[dft4['streetname_and_number'] == street], use_container_width=True)
 
     
+    with tab5:
+        fetch_dates = pd.to_datetime(df['fetch_date'])
+        sell_dates = pd.to_datetime(df['removal_date'])
 
+        f_weeknum = fetch_dates.dt.strftime('%Y-%U')
+        s_weeknum = sell_dates.dt.strftime('%Y-%U')
+        df_listed = pd.DataFrame({'listed_date' : fetch_dates, 'sell_date':sell_dates, 'fetch_wy' : f_weeknum,'sell_wy': s_weeknum})
+       
+        df_tab5 = df_listed.groupby('fetch_wy').agg({
+           'fetch_wy' : 'count',
+           'sell_wy' : 'count'
+        })
+  
+        df_tab5.rename(columns={'fetch_wy': 'fetch_count', 'sell_wy':'sell_count'}, inplace=True)
+       
+       
+        df_tab5['sell_count'] *= -1
+        df_tab5['net'] = df_tab5['fetch_count'] + df_tab5['sell_count']
+     
+        df_tab5 = df_tab5.reset_index()
+        st.dataframe(df_tab5)
+        st.bar_chart(df_tab5, y = ['fetch_count','sell_count'], x = 'fetch_wy', color = ["#0000FF", "#FF0000"])
