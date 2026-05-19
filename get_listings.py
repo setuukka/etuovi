@@ -87,7 +87,7 @@ if debug_printing:
 
 
 def wait_random():
-    wait_time = random.uniform(1, 5)
+    wait_time = random.uniform(2, 6)
     #print(f"Waiting for {wait_time:.2f} seconds")
     time.sleep(wait_time)
 
@@ -400,7 +400,7 @@ def extract_year_built(soup):
     return valmistusvuosi
 
 if __name__ == "__main__":
-    base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/heinapaa?haku=M2284191086'
+    base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/kaukovainio?haku=M2475659261' #KAUKOVAINIO
     page = 1
     seen_hrefs = set()
     url_list = []
