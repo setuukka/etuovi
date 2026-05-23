@@ -16,7 +16,7 @@ df = pd.read_csv(all_listings_path)
 
 # %%
 #Drop unnecessary columns
-df.drop(columns = ['subject', 'sender', 'date', 'soup','Kohdenumero','Sijainti','Tyyppi','Omistusmuoto','Huoneita','Käyttöönottovuosi',
+df.drop(columns = ['sender', 'date', 'soup','Kohdenumero','Sijainti','Tyyppi','Omistusmuoto','Huoneita','Käyttöönottovuosi',
                     'Parvekkeen kuvaus','Kokonaispinta-ala','Lisätietoja pinta-alasta','Tietoliikenne','Lämmitysjärjestelmän kuvaus','Rakennus- ja pintamateriaalit',
                     'Keittiön kuvaus','Hinta','Kylpyhuoneen kuvaus', 'Saunan kuvaus', 'Olohuoneen kuvaus','Vastike',
                     'Makuuhuoneiden kuvaus', 'Kattotyyppi', 'Kattomateriaalin kuvaus','Isännöitsijän yhteystiedot', 
@@ -36,6 +36,8 @@ df.drop(columns = ['subject', 'sender', 'date', 'soup','Kohdenumero','Sijainti',
 df.columns
 
 # %%
+df['subject'] = df['subject'].str.split(" ")
+df['district'] = df['subject'].str[-1]
 df['urls'] = df['urls'].str.split("'")
 df['urls'] = df['urls'].str[1]
 
@@ -107,7 +109,7 @@ df['decade_built'] = df['year_built'].apply(lambda x : int(str(x)[:3]+"0"))
 # %%
 #sorting columns
 
-df = df[['urls', 'year_built', 'rooms', 'apartment_size', 'price', 'price_sqm', 'maintenance_fee', 'maintenance_sqm', 'total_maintenance', 'active', 'condition', 'street', 'street_number', 'staircase', 'total_floors', 
+df = df[['urls', 'district', 'year_built', 'rooms', 'apartment_size', 'price', 'price_sqm', 'maintenance_fee', 'maintenance_sqm', 'total_maintenance', 'active', 'condition', 'street', 'street_number', 'staircase', 'total_floors', 
        'housing_company', 'plot_ownership', 'fetch_date','removal_date', 'sell_time_days', 'decade_built', 'is_sauna', 'is_balcony', 'is_elevator']]
 
 # %%
