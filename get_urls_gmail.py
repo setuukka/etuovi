@@ -239,6 +239,7 @@ def scan_emails(service, query='is:unread', max_results=10):
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(message_list)
+    
 
     #Add status as new to each row
 
@@ -246,3 +247,4 @@ def scan_emails(service, query='is:unread', max_results=10):
 if __name__ == '__main__':
     service = get_gmail_service()
     scan_emails(service, query='from:etuovi.com')  # 🔍 Customize query
+    print("Mail Scan completed")
