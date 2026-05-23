@@ -4,7 +4,9 @@ import numpy as np
 from datetime import datetime
 from pathlib import Path
 
-BASE_DIR = Path(__file__).parent.resolve()
+# %%
+#BASE_DIR = Path.cwd() #Enable if in jupyter
+BASE_DIR = Path(__file__).parent.resolve() #Enable if in py
 all_listings_path = BASE_DIR / "all_listings.csv"
 df_for_streamlit_path = BASE_DIR / "df_for_streamlit.csv"
 
@@ -14,7 +16,7 @@ df = pd.read_csv(all_listings_path)
 
 # %%
 #Drop unnecessary columns
-df.drop(columns = ['soup','Kohdenumero','Sijainti','Tyyppi','Omistusmuoto','Huoneita','Käyttöönottovuosi',
+df.drop(columns = ['subject', 'sender', 'date', 'soup','Kohdenumero','Sijainti','Tyyppi','Omistusmuoto','Huoneita','Käyttöönottovuosi',
                     'Parvekkeen kuvaus','Kokonaispinta-ala','Lisätietoja pinta-alasta','Tietoliikenne','Lämmitysjärjestelmän kuvaus','Rakennus- ja pintamateriaalit',
                     'Keittiön kuvaus','Hinta','Kylpyhuoneen kuvaus', 'Saunan kuvaus', 'Olohuoneen kuvaus','Vastike',
                     'Makuuhuoneiden kuvaus', 'Kattotyyppi', 'Kattomateriaalin kuvaus','Isännöitsijän yhteystiedot', 
@@ -29,6 +31,13 @@ df.drop(columns = ['soup','Kohdenumero','Sijainti','Tyyppi','Omistusmuoto','Huon
                     'Pihan kuvaus','Asuinkerrosten määrä', 'Lämmitysjärjestelmä','Vesijohto','Huoneistoselitelmä',
                     'Asunnon käytössä olevat autopaikat','Lisätietoa tontin omistuksesta', 'Tontin vuokra-aika', 
                     'Ajo-ohjeet','Muiden tilojen pinta-ala'], inplace = True, errors = 'ignore')
+
+# %%
+df.columns
+
+# %%
+df['urls'] = df['urls'].str.split("'")
+df['urls'] = df['urls'].str[1]
 
 # %%
 #correct data types of dates to make calcutations on sale times
@@ -97,7 +106,8 @@ df['decade_built'] = df['year_built'].apply(lambda x : int(str(x)[:3]+"0"))
 
 # %%
 #sorting columns
-df = df[['url', 'year_built', 'rooms', 'apartment_size', 'price', 'price_sqm', 'maintenance_fee', 'maintenance_sqm', 'total_maintenance', 'active', 'condition', 'street', 'street_number', 'staircase', 'total_floors', 
+
+df = df[['urls', 'year_built', 'rooms', 'apartment_size', 'price', 'price_sqm', 'maintenance_fee', 'maintenance_sqm', 'total_maintenance', 'active', 'condition', 'street', 'street_number', 'staircase', 'total_floors', 
        'housing_company', 'plot_ownership', 'fetch_date','removal_date', 'sell_time_days', 'decade_built', 'is_sauna', 'is_balcony', 'is_elevator']]
 
 # %%
@@ -131,6 +141,5 @@ df.to_csv(df_for_streamlit_path, index = False)
 #df.to_csv("df_for_streamlit.csv", index = False)
 print(f"csv for streamlit saved with {len(df)} rows on {datetime.now()}")
 # %%
-
 
 

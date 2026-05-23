@@ -21,12 +21,11 @@ import re
 import requests
 from pathlib import Path
 import numpy as np
+import ast
 
 BASE_DIR = Path(__file__).parent.resolve()
 all_listings_path = BASE_DIR / "all_listings.csv"
-latest_listings_path = BASE_DIR / "latest_listings.csv"
-
-
+latest_listings_path = BASE_DIR / "listings.csv"
 
 poistettavat_sarakkeet = ['Unnamed: 0','Sijainti','Omistusmuoto',
        'Huoneistoselitelmä', 'Huoneita', 'Lisätietoja pinta-alasta', 'Rakennusvuosi', 'Käyttöönottovuosi', 'Vapautuminen', 'Hinta',
@@ -54,7 +53,7 @@ try:
 except FileNotFoundError:
     print("We are not in Linux")
 
-debug_printing = False
+debug_printing = True
 pauses = False
 
 
@@ -92,15 +91,13 @@ def wait_random():
     time.sleep(wait_time)
 
 def update_listing_file():
-
     print("Looking for all_listings.csv at:", all_listings_path)
     print("Exists?", all_listings_path.exists())
     if all_listings_path.exists():
-        #df_new = pd.read_csv('latest_listings.csv')
         df_new = pd.read_csv(latest_listings_path)
-        print("Loaded latest listings from: ", latest_listings_path)
-        url_list = df_new['url'].tolist()
-        print(f"todays list has {len(url_list)} listings")
+        print("Function: 'update_listings_file()': Loaded latest listings from: ", latest_listings_path)
+        url_list = df_new['urls'].tolist()
+        print(f"Function: 'update_listings_file()': todays list has {len(url_list)} listings")
         if debug_printing:
             print(f"URL-list from today's scraping df: {url_list}")
         #luetaan viimeisin hakutulos dataframeen
@@ -114,7 +111,7 @@ def update_listing_file():
         if debug_printing:
             print(f"{df_old['active'].value_counts()} after changing")
         #päivitetään rivit, jotka löytyvät uudesta hausta
-        df_old.loc[df_old['url'].isin(url_list), 'active'] = True
+        df_old.loc[df_old['urls'].isin(url_list), 'active'] = True
         df_old.loc[df_old['active'], 'removal_date'] = pd.NA
         if debug_printing:
             print(f"Old df now has {len(df_old['active'])} listings, after setting still excisting to True")
@@ -125,7 +122,7 @@ def update_listing_file():
         #yhdistetään uudet rivit, jotka eivät ole vielä mukana
         df_combined = pd.concat([
             df_old,
-            df_new[~df_new['url'].isin(df_old['url'])]
+            df_new[~df_new['urls'].isin(df_old['urls'])]
         ], ignore_index=True)
         if debug_printing:
             print(f"df_combined has {len(df_combined)} rows. old_df had{len(df_old)} rows. Change is {len(df_combined) - len(df_old)} rows")
@@ -133,12 +130,13 @@ def update_listing_file():
         if debug_printing:
             print(f"Old file was not found. Using only today's listings")
         #Tiedostoa ei ole, käytetään vain uusia
-        df_combined = pd.read_csv('latest_listings.csv')
+        df_combined = pd.read_csv(latest_listings_path)
         #poistetaan duplikaatot
-    df_combined.drop_duplicates(subset = 'url', keep = 'last', inplace = True)
+    df_combined.drop_duplicates(subset = 'urls', keep = 'last', inplace = True)
     #Tallennetaan df csv
     df_combined.to_csv(all_listings_path, index = False)
-
+    print(f"Function: 'update_listings_file()': Returning dataframe with {df_combined.shape[0]} rows and {df_combined.shape[1]} columns")
+    print(df_combined)
     return df_combined
 
 def get_urls(base_url, page):
@@ -211,12 +209,12 @@ def get_urls(base_url, page):
     date = current_date()
     #filename = f"{date}_listings.csv"
 
-    df = pd.DataFrame(url_list, columns=['url'])
+    df = pd.DataFrame(url_list, columns=['urls'])
     df['fetch_date'] = current_date()
     df['active'] = True
     df['removal_date'] = None
     #print(df['removal_date'])
-    df = df.drop_duplicates(subset = ['url'], keep = 'last')
+    df = df.drop_duplicates(subset = ['urls'], keep = 'last')
 
 
     print(f"Writing {len(url_list)} rows to 'latest_listings.csv'")
@@ -228,12 +226,27 @@ def get_urls(base_url, page):
     print(f"Execution time: {execution_time_etuovi:.2f} seconds")
 
 def get_soup(df):
-    print("Startins 'get_soup' function")
+
+
+    df['fetch_date'] = current_date()
+    df['active'] = True
+    df['removal_date'] = None
+
+
+    df = df.drop_duplicates(subset = ['urls'], keep = 'last')
+    print("Function 'get_soup(df)': Starting")
     soups = []
 
-
     for index, row in df.iterrows():
-        url = row['url']
+        url_str = row['urls']
+        print(f"Function 'get_soup(df)': url is: {url_str} with datatype {type(url_str)}")
+
+        try:
+            url_list = ast.literal_eval(url_str) #Evaluate if string as a list
+            url = url_list[0] if isinstance(url_list, list) and len(url_list) > 0 else url_str
+        except (ValueError, SyntaxError):
+            url = url_str
+
         if debug_printing:
             print(f"getting soup for: {url}")
         try:
@@ -400,14 +413,16 @@ def extract_year_built(soup):
     return valmistusvuosi
 
 if __name__ == "__main__":
-    base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/kaukovainio?haku=M2475659261' #KAUKOVAINIO
-    page = 1
-    seen_hrefs = set()
-    url_list = []
-    get_urls(base_url, page) #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
+    #base_url = 'https://www.etuovi.com/myytavat-asunnot/oulu/kaukovainio?haku=M2475659261' #KAUKOVAINIO
+    #page = 1
+    #seen_hrefs = set()
+    #url_list = []
+    #get_urls(base_url, page) #Haetaan listausten osoitteet, tallennetaan ne latest_listings.csv
 
-
+    if debug_printing:
+        print("Calling function 'update_listing_file()'")
     df_combined = update_listing_file()
+    print("Function 'update_listing_file()' completed succesfully")    
     if debug_printing:
         print(f"Function update_listing_file returnd a dataframe with {len(df_combined)} values")
     if pauses:
