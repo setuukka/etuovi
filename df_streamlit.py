@@ -26,7 +26,6 @@ if lit:
     st.set_page_config(layout = "wide")
 df = pd.read_csv("df_for_streamlit.csv")
 df = df.drop(columns = ['is_sauna', 'is_balcony','is_elevator'])
-#print(df.columns)
 
 df['streetname_and_number'] = df['street'].astype(str) + " " + df['street_number'].astype(str)
 #df = df.drop(columns = ['cond_adequate', 'cond_terrible', 'cond_unclassified'])
@@ -46,7 +45,8 @@ def dataframe_selector(df, active = True, passive = True, kv = True, rk = True, 
     if kv:
         allowed_districts.append('kaukovainio')
     if rk:
-        allowed_districts.append('rajakylä')
+        allowed_districts.append('Rajakylä')
+        allowed_districts.append('rajakyla')
     if mo:
         allowed_districts.append('myllyoja')
     if hp:
@@ -91,6 +91,7 @@ if lit:
     tab1, tab2, tab3, tab4 = st.tabs(["Grouped by room count", "Colored", "Boxplot", "Grouped by street"])
 
     with tab1:
+        st.write(df)
         #st.write(f"Rows {df_rows}, columns {df_columns}")
         #st.write(df.shape)
         if yksio_checkbox:

@@ -136,7 +136,7 @@ def update_listing_file():
     #Tallennetaan df csv
     df_combined.to_csv(all_listings_path, index = False)
     print(f"Function: 'update_listings_file()': Returning dataframe with {df_combined.shape[0]} rows and {df_combined.shape[1]} columns")
-    print(df_combined)
+    #print(df_combined)
     return df_combined
 
 def get_urls(base_url, page):

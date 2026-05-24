@@ -103,51 +103,6 @@ def get_email_body(service, msg_id):
 
     return base64.urlsafe_b64decode(body).decode('utf-8') if body else ''
 
-def get_email_details(service, msg_id):
-    message = service.users().messages().get(
-        userId='me',
-        id=msg_id,
-        format='full'
-    ).execute()
-
-    headers = message['payload']['headers']
-    subject = next((h['value'] for h in headers if h['name'] == 'Subject'), 'No Subject')
-    sender = next((h['value'] for h in headers if h['name'] == 'From'), 'Unknown')
-
-    # Extract and parse the received date
-    date_str = next((h['value'] for h in headers if h['name'] == 'Date'), 'Unknown Date')
-    try:
-        # Parse RFC 2822 date format (e.g., "Mon, 21 May 2026 14:30:00 +0300")
-        date = parsedate_to_datetime(date_str)
-        # Format as readable string (adjust timezone as needed)
-        formatted_date = date.strftime('%Y-%m-%d %H:%M:%S %Z')  # e.g., "2026-05-21 14:30:00 +0300"
-    except:
-        formatted_date = date_str  # Fallback to raw string
-
-    # Extract body
-    body = ''
-    if 'parts' in message['payload']:
-        for part in message['payload']['parts']:
-            if part['mimeType'] == 'text/plain':
-                body = part['body']['data']
-                break
-            elif part['mimeType'] == 'text/html':
-                html = part['body']['data']
-                soup = BeautifulSoup(base64.urlsafe_b64decode(html).decode('utf-8'), 'html.parser')
-                body = soup.get_text()
-                break
-    else:
-        body = message['payload']['body']['data']
-
-    body = base64.urlsafe_b64decode(body).decode('utf-8') if body else ''
-    urls = extract_urls(body)
-
-    return {
-        'subject': subject,
-        'sender': sender,
-        'date': formatted_date,
-        'urls': urls
-    }
 
 # --- Search Emails ---
 def search_emails(service, query, max_results=10):
@@ -225,7 +180,7 @@ def scan_emails(service, query='is:unread', max_results=10):
         #print(f"Subject: {details['subject']}")
         #print(f"From: {details['sender']}")
         #print(f"Received: {details['date']}")
-        #print(f"URL: {details['urls'][0]}")
+        print(f"URL: {details['urls'][0]}")
         #details['status'] = 'new'
         message_list.append(details)
 
