@@ -67,6 +67,7 @@ kadun_mukaan = df.groupby(['street']).agg(
 )
 
 if lit:
+    st.sidebar.write(df.shape)
     st.sidebar.subheader("Number of rooms")
     yksio_checkbox = st.sidebar.checkbox(label = "1h", value=True)
     kaksio_checkbox = st.sidebar.checkbox(label = "2h", value=True)
@@ -91,7 +92,7 @@ if lit:
     tab1, tab2, tab3, tab4 = st.tabs(["Grouped by room count", "Colored", "Boxplot", "Grouped by street"])
 
     with tab1:
-        st.write(df)
+
         #st.write(f"Rows {df_rows}, columns {df_columns}")
         #st.write(df.shape)
         if yksio_checkbox:

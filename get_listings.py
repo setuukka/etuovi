@@ -98,11 +98,12 @@ def update_listing_file():
         print("Function: 'update_listings_file()': Loaded latest listings from: ", latest_listings_path)
         url_list = df_new['urls'].tolist()
         print(f"Function: 'update_listings_file()': todays list has {len(url_list)} listings")
-        if debug_printing:
-            print(f"URL-list from today's scraping df: {url_list}")
+
         #luetaan viimeisin hakutulos dataframeen
         df_old = pd.read_csv(all_listings_path)
         print(f"Old dataframe contains {len(df_old)} listings")
+
+        '''
         #asetetaan kaikki oletuksena ei-aktiivisiksi
         if debug_printing:
             #print(f"Old df has {len(df_old[df_old['active'] == True])} listings. Setting all to False")
@@ -119,7 +120,10 @@ def update_listing_file():
         df_old.loc[(df_old['removal_date'].isna()) & (df_old['active'] == False), 'removal_date'] = datetime.today().date()
         if debug_printing:
             print((df_old['active'] == False).sum(), "items set to False and deactive")
+        '''
+        
         #yhdistetään uudet rivit, jotka eivät ole vielä mukana
+
         df_combined = pd.concat([
             df_old,
             df_new[~df_new['urls'].isin(df_old['urls'])]
@@ -139,96 +143,13 @@ def update_listing_file():
     #print(df_combined)
     return df_combined
 
-def get_urls(base_url, page):
-    print("Starting 'get_urls' function")
-    try:
-        spotlight = driver.find_element(By.ID, "spotlight-container-id")
-        driver.execute_script("arguments[0].remove();", spotlight)
-        print("Spotlight-mainos poistettu.")
-    except:
-        print("Ei spotlight-mainosta tällä sivulla.")
 
-    print(base_url)
-    print("Siirrytään sivulle..")
-    driver.get(base_url)
-    print("Sivu ladattu!")
-    driver.implicitly_wait(10)
-
-    # #Jos tulee cookies-popup
-    try:
-        accept_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "almacmp-modalConfirmBtn"))
-        )
-        accept_button.click()
-    except Exception as e:
-        print("Cookies-popup error")
-        print(f"An error occurred: {e}")
-
-    #Accessing <a hrefs>
-    while True:
-        full_url = f"{base_url}&sivu={page}"
-        print(f"\nKäsitellään sivu {page}: {full_url}")
-        driver.get(full_url)
-
-        try:
-            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
-        except Exception as e:
-            print(f"Sivun latauksessa virhe: {e}")
-            break
-
-        wait_random()
-        try:
-            spotlight = driver.find_element(By.ID, "spotlight-container-id")
-            driver.execute_script("arguments[0].remove();", spotlight)
-            print("Spotlight-mainos poistettu.")
-        except:
-            print("Ei spotlight-mainosta tällä sivulla.")
-        a_tags = driver.find_elements(By.TAG_NAME, 'a')
-        filtered_hrefs = [a.get_attribute('href') for a in a_tags
-                        if a.get_attribute('href') and "kohde" in a.get_attribute('href')]
-
-        # Poistetaan parametrit URLin lopusta ja suodatetaan duplikaatit
-        new_hrefs = []
-        for href in filtered_hrefs:
-            clean_href = href.split('?')[0]
-            if clean_href not in seen_hrefs:
-                seen_hrefs.add(clean_href)
-                new_hrefs.append(clean_href)
-
-        print(f"Löytyi {len(new_hrefs)} uutta linkkiä")
-
-        if not new_hrefs:
-            print("Ei uusia linkkejä – lopetetaan.")
-            break
-
-        url_list.extend(new_hrefs)
-        page += 1
-        wait_random()
-    driver.quit()
-
-    date = current_date()
-    #filename = f"{date}_listings.csv"
-
-    df = pd.DataFrame(url_list, columns=['urls'])
-    df['fetch_date'] = current_date()
-    df['active'] = True
-    df['removal_date'] = None
-    #print(df['removal_date'])
-    df = df.drop_duplicates(subset = ['urls'], keep = 'last')
-
-
-    print(f"Writing {len(url_list)} rows to 'latest_listings.csv'")
-    df.to_csv("latest_listings.csv", index=False)
-    print("Save complete!")
-
-    end_time_etuovi = time.time()
-    execution_time_etuovi = end_time_etuovi - start_time_etuovi
-    print(f"Execution time: {execution_time_etuovi:.2f} seconds")
 
 def get_soup(df):
 
 
-    df['fetch_date'] = current_date()
+    #df['fetch_date'] = current_date()
+    df['fetch_date'] = datetime.now()
     df['active'] = True
     df['removal_date'] = None
 
@@ -238,6 +159,7 @@ def get_soup(df):
     soups = []
 
     for index, row in df.iterrows():
+        print("ARE WE IN FOR LOOP??")
         url_str = row['urls']
         print(f"Function 'get_soup(df)': url is: {url_str} with datatype {type(url_str)}")
 
@@ -287,8 +209,7 @@ def extract_price(soup):
             return 0
         hinta_str = h3_tags[0].get_text(strip=True).replace('\xa0', '').replace('€', '').strip()
         hinta = int(hinta_str)
-        if debug_printing:
-            print(f"Hinta_str is {hinta_str} and Hinta is {hinta}")
+
 
     except Exception:
         hinta = 0
@@ -405,8 +326,7 @@ def extract_year_built(soup):
                 print("No H3 tags were found to extract price from")
             return 0
         valmistusvuosi = int(h3_tags[2].get_text())
-        if debug_printing:
-            print(f"Valmistusvuosi on {valmistusvuosi}")
+
 
     except Exception:
         valmistusvuosi = 0
@@ -446,6 +366,8 @@ if __name__ == "__main__":
 
         df_no_values = get_soup(df_no_values)
         df_combined.update(df_no_values)
+        print(df_combined.columns)
+        print(df_combined.head(5))
 
     except KeyError:
         if debug_printing:
