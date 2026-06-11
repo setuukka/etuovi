@@ -463,3 +463,4 @@ if __name__ == "__main__":
     df_combined.to_csv(all_listings_path, index = False)
     print("Saved combined listings to: ", all_listings_path)
     print(f"Script completed at {datetime.now()}")
+    driver.quit()
