@@ -147,7 +147,6 @@ def update_listing_file():
 
 def get_soup(df):
 
-
     #df['fetch_date'] = current_date()
     df['fetch_date'] = datetime.now()
     df['active'] = True
@@ -374,8 +373,6 @@ if __name__ == "__main__":
             print(f"Got KeyError while creating missing prices dataframe!")
         df_combined = get_soup(df_combined)
 
-
-
     def process_listing(soup):
         return {
             'hinta': extract_price(soup),
@@ -400,3 +397,4 @@ if __name__ == "__main__":
     df_combined.to_csv(all_listings_path, index = False)
     print("Saved combined listings to: ", all_listings_path)
     print(f"Script completed at {datetime.now()}")
+    driver.quit()
